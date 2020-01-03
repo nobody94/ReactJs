@@ -1,3 +1,0 @@
-- join: chuyển array thành 1 string 
-vd [1,2,3].join(" ")= 1 2 3
-

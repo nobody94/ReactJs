@@ -1,7 +1,0 @@
-1. init store , Provider in index.js
-2. write reducer in reducer folder
-3. 
-4. 
-
-
-- combineReducers : gộp các reducer vào thành 1 reducer

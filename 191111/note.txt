@@ -1,8 +1,0 @@
-- set state ko đồng bộ 
-- Khai báo state
-    constructor(props) {
-      super(props);// khởi tạo base để có thể hiểu đc this.state 
-      this.state = {date: new Date()};
-    }
-- callback khi dùng mới định nghĩa, trong trường hợp thay đổi liên tục thì ko nên dùng callback
-- e : event 
