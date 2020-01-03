@@ -1,0 +1,39 @@
+1. Router Training: https://reacttraining.com/react-router/web/example/basic
+2. Web APIs: https://developer.mozilla.org/en-US/docs/Web/API
+- install : npm i --save react-router react-router-dom
+- import : 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+- App.js 
+<BrowserRouter>
+    <div className="App">
+    <Blog />
+    </div>
+</BrowserRouter>
+- <Route path="/" exact render={() => <h1>Home</h1>} />
+path ="*" : trả về 404 nếu ko trùng với 1 trg những route còn lại
+exact : tìm đúng link sau / , nếu ko có thì sẽ chỉ tìm đến giống đến gần nhất
+vd: <Route path="/" exact render={() => <h1>Home</h1>} /> <Route path="/" exact render={() => <h1>Home</h1>} /> thì 3/5 sẽ render cả /3 vì cả 2 đều có /3
+- <Link to="/"></Link> định nghĩa  đường dẫn to path
+- <Route path="/" exact render={() => <h1>Home</h1>} /> render theo path 
+-<NavLink
+    activeClassName="my-active"
+    activeStyle={{
+        color: '#fa923f',
+        textDecoration: 'underline'
+    }}>Posts</NavLink>
+Giống Link nhg thêm phần active
+ + custom active: activeClassName="my-active"
+    activeStyle={{
+        color: '#fa923f',
+        textDecoration: 'underline'
+    }}
+ + Nếu ko custom thì tự động thêm class mặc định là active
+    
+- <Switch></Switch> : nhóm các route và render route đầu tiên mà khớp vs nó
+vd có 2 route giống path nhg sẽ render ra thằng đầu tiên ko render cùng lúc những route có path giống nhau
+- <Redirect from="/" to="/posts" /> check đk và chuyển sang luôn ko cần ấn 

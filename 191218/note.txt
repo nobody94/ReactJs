@@ -1,0 +1,4 @@
+- debug:
+    + F5 to start 
+    + F8 to continue to next point( which we create)
+    + F10 to continue to next line 
