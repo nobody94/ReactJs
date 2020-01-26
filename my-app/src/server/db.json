@@ -1,0 +1,35 @@
+{
+    "users": [
+        {
+            "name": "trungnq3",
+            "location": "HN3",
+            "id": 3
+        }
+    ],
+    "posts": [
+        {
+            "id": 1,
+            "userId": 1,
+            "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+            "author": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae"
+        },
+        {
+            "id": 2,
+            "userId": 1,
+            "title": "qui est esse",
+            "author": "st rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis"
+        },
+        {
+            "id": 3,
+            "userId": 1,
+            "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+            "author": "t iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae"
+        },
+        {
+            "id": 4,
+            "userId": 1,
+            "title": "um et est occaecati",
+            "author": "llam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis"
+        }
+    ]
+}
