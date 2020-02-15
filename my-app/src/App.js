@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './assets/css/Header.css';
 import { BrowserRouter as Router, Route, Link,Switch } from "react-router-dom";
 import Home from './pages/home/Home';
 import Contact from './pages/contact/Contact';
@@ -23,14 +24,16 @@ function App() {
                 <li><Link to="/contact">Contact</Link></li>
                 <li><Link to="/sign-in">Sign in</Link></li> 
                 <li>
-                  <span className="minicart">
-                    <img src={cartIcon}></img><span className="minicart-number">0</span>
-                  </span>     
-                  <div className="minicart-content">
-                    <div className="block-content">
-                      <p className="message">{noItemMsg}</p>
-                    </div>
-                    <Link to="/" className="action">go to Checkout</Link>
+                  <div className="minicart">
+                    <span className="minicart-icon">
+                      <img src={cartIcon}></img><span className="minicart-number">0</span>
+                    </span>
+                    <div className="minicart-content">
+                      <div className="block-content">
+                        <p className="message">{noItemMsg}</p>
+                      </div>
+                      <Link to="/" className="action">go to Checkout</Link>
+                    </div> 
                   </div> 
                 </li>  
               </ul>
