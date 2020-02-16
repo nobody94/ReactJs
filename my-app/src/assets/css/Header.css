@@ -35,9 +35,13 @@
     box-shadow: 0px 0px 5px rgba(0,0,0,.3);
     z-index: 90;
 }
+.minicart-content.active{
+    display: block;
+}
 .minicart-icon{
     position: relative;
     display: block;
+    cursor: pointer;
 }
 .minicart-number{
     position: absolute;
