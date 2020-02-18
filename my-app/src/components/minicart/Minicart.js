@@ -1,6 +1,6 @@
 import React from 'react';
 import cartIcon from '../../assets/shopping-bag.svg';
-import { BrowserRouter as Router, Route, Link,Switch } from "react-router-dom";
+import {  Link } from "react-router-dom";
 class Minicart extends React.Component {
     constructor(props){
       super(props);

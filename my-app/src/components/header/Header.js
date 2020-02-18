@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link,Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Minicart from '../minicart/Minicart';
 import logo from '../../assets/crown.svg';
 import './Header.css';
