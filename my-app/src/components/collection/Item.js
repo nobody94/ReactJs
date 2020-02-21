@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Shop() {
+function Home() {
   return (
     <div className="container">
-      shop
+      home
     </div>
   );
 }
 
-export default Shop;
+export default Home;

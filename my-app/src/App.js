@@ -7,7 +7,7 @@ import Shop from './pages/shop/Shop';
 import Form from './pages/sign-in/Form';
 import Checkout from './pages/checkout/Checkout';
 import Header from './components/header/Header';
-
+import Collection from './pages/collection/Colletion';
 
 class App extends React.Component {
   constructor(props){
@@ -22,16 +22,16 @@ class App extends React.Component {
           <Route exact path="/">
             <Home></Home>
           </Route>
-          <Route path="/contact">
+          <Route exact path="/contact">
             <Contact></Contact>
           </Route>
           <Route path="/shop">
             <Shop></Shop>
           </Route>
-          <Route path="/sign-in">
+          <Route exact path="/sign-in">
            <Form></Form>
           </Route>
-          <Route path="/checkout">
+          <Route exact path="/checkout">
            <Checkout></Checkout>
           </Route>
         </Switch>
