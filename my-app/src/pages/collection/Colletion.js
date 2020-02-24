@@ -1,7 +1,6 @@
 import React from 'react';
 import Item from '../../components/collection/CollectionItem';
 import {connect} from 'react-redux';
-import {getShop} from '../../redux/shop/shop-selector';
 const Collection = ({collection}) =>{
   const { title, items } = collection;
   return (
@@ -13,7 +12,7 @@ const Collection = ({collection}) =>{
 }
 function mapStateToProps(state){
   return{
-    shop : getShop(state)
+    shop :state.shopData
   }
 }
 export default connect(mapStateToProps)(Collection);
