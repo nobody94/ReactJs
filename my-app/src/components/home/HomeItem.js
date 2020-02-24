@@ -5,14 +5,16 @@ class HomeItem extends React.Component {
     super(props);  
     // this.itemClickHandle = this.itemClickHandle.bind(this);
   }   
-  itemClickHandle(){    
-    // history.push(`{this.props.linkUrl}`)
-  }
+  // itemClickHandle(){ 
+  //   const { history } = this.props;   
+  //   history ? history.push(`{this.props.linkUrl}`) : history.push('/noroute');
+  // }
   render(){
+    const { history } = this.props;   
     const linkUrl=this.props.linkUrl;
     const item = 'item' + (this.props.size =='large'? ' large':''); 
     return (
-      <div className={item} /*onClick={() => history.push(`${linkUrl}`)}*/>
+      <div className={item} /*onClick={this.itemClickHandle}*/>
         <div className="banner">
           <img src={this.props.imageUrl}></img>
           <div className="content">

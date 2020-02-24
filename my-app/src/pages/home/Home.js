@@ -14,8 +14,7 @@ class Home extends React.Component {
       )
     });
   }
-  render(){  
-    console.log("image url " + this.props.data);  
+  render(){         
     return (
       <div className="container">
         <div className="home-banner">
@@ -28,7 +27,7 @@ class Home extends React.Component {
 
 function mapStateToProps(state){
   return{
-    data : state.collectionData,
+    data : state.homeData,
   }
 }
 export default connect(mapStateToProps)(Home);

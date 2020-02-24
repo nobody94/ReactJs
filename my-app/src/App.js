@@ -7,8 +7,7 @@ import Shop from './pages/shop/Shop';
 import Form from './pages/sign-in/Form';
 import Checkout from './pages/checkout/Checkout';
 import Header from './components/header/Header';
-import Collection from './pages/collection/Colletion';
-
+import Error from './pages/error/Error';
 class App extends React.Component {
   constructor(props){
     super(props);  
@@ -33,6 +32,9 @@ class App extends React.Component {
           </Route>
           <Route exact path="/checkout">
            <Checkout></Checkout>
+          </Route>
+          <Route exact path="/noroute">
+           <Error></Error>
           </Route>
         </Switch>
     </Router>

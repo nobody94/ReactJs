@@ -1,11 +1,11 @@
 import React from 'react';
 
-function CollectionItem() {
+function CategoryItem() {
   return (
     <div className="item">
-      
+    item
     </div>
   );
 }
 
-export default CollectionItem;
+export default CategoryItem;

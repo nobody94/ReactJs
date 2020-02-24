@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import collectionData from './collection/collection-data';
-
+import homeData from './home/home-data';
+import shopData from './shop/shop-data';
 
 export default combineReducers({
-    collectionData,
-    
+    homeData,
+    shopData
 })
