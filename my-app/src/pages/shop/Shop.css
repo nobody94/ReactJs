@@ -1,7 +1,7 @@
 .block-wrapper:not(:last-child){
     margin-bottom: 30px;
 }
-.category-view{
+.category-view,.collection-view{
     margin-top: 30px;
     margin-bottom: 50px;
 }
@@ -9,7 +9,7 @@
     margin-top: 0;
     text-transform: uppercase;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 28px;
     margin-bottom: 20px;
     line-height: 100%;
 }
@@ -75,4 +75,10 @@
 }
 .block-wrapper .item:hover .image-wrapper:before,.block-wrapper .item:hover .image-wrapper .action{
     opacity: 1;
+}
+.collection-view .title{
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 40px;
+    font-size: 38px;
 }

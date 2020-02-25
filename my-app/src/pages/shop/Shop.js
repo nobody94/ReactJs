@@ -1,15 +1,38 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import Category from '../category/Category';
-import Collection from '../collection/Colletion';
+import Collection from '../collection/Collection';
 import './Shop.css';
-function Shop(match) {
+import {connect} from 'react-redux';
+
+class Shop  extends React.Component{ 
+  constructor(props){
+    super(props);  
+   
+} 
+  
+ render(){    
   return (
     <div className="container">
-     <Route><Category></Category></Route>
-     {/* <Route><Collection></Collection></Route> */}
+     <Route exact path='/shop'><Category></Category></Route>
+     <Route exact path={`/shop/:shopId`}><Collection></Collection></Route>
     </div>
-  );
+  )
+ };
 }
+function mapStateToProps(state){
+  return{
+    data : state.shopData,
+  }    
+}
+export default connect(mapStateToProps)(Shop);
 
-export default Shop;
+
+// const Shop  = ({ match }) => (
+//   <div className='container'>
+//     <Route exact path='/shop'><Category></Category></Route>
+//     <Route path={`/shop/:shopId`}><Collection></Collection></Route>
+//   </div>
+// );
+
+// export default Shop ;

@@ -1,13 +1,13 @@
 import React from 'react';
-import Item from './CategoryItem';
+import Item from './CollectionItem';
 
-class CategoryBlock extends React.Component {
+class CollectionBlock extends React.Component {
     constructor(props){
         super(props);  
        
     } 
     ListItem(){
-        return this.props.product.filter((item, idx) => idx < 4).map((item)=>{
+        return this.props.product.map((item)=>{
             return(
             <Item key={item.id} name={item.name} imageUrl={item.imageUrl} price={item.price}></Item> 
             )
@@ -25,4 +25,4 @@ class CategoryBlock extends React.Component {
   }
 }
 
-export default CategoryBlock;
+export default CollectionBlock;
