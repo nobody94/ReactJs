@@ -1,5 +1,5 @@
 import React from 'react';
-import Item from './CollectionItem';
+import Item from '../category/CategoryItem';
 
 class CollectionBlock extends React.Component {
     constructor(props){

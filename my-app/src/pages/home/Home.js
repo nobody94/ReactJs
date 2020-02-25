@@ -1,6 +1,7 @@
 import React from 'react';
 import Item from '../../components/home/HomeItem';
 import './Home.css';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 class Home extends React.Component {
   constructor(props){
@@ -14,7 +15,7 @@ class Home extends React.Component {
       )
     });
   }
-  render(){         
+  render(){ 
     return (
       <div className="container">
         <div className="home-banner">
@@ -27,7 +28,7 @@ class Home extends React.Component {
 
 function mapStateToProps(state){
   return{
-    data : state.homeData,
+    data : state.homeData
   }
 }
 export default connect(mapStateToProps)(Home);
