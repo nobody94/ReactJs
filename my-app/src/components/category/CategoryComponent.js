@@ -9,7 +9,7 @@ class CategoryBlock extends React.Component {
     ListItem(){
         return this.props.product.filter((item, idx) => idx < 4).map((item)=>{
             return(
-            <Item key={item.id} name={item.name} imageUrl={item.imageUrl} price={item.price}></Item> 
+            <Item key={item.id} name={item.name} imageUrl={item.imageUrl} price={item.price} product={item}></Item> 
             )
         });
     } 

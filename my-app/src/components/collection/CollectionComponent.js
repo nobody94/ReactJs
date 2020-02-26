@@ -9,7 +9,7 @@ class CollectionBlock extends React.Component {
     ListItem(){
         return this.props.product.map((item)=>{
             return(
-            <Item key={item.id} name={item.name} imageUrl={item.imageUrl} price={item.price}></Item> 
+            <Item key={item.id} name={item.name} imageUrl={item.imageUrl} price={item.price} product={this.props.product}></Item> 
             )
         });
     } 
