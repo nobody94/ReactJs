@@ -3,6 +3,7 @@ import cartIcon from '../../assets/shopping-bag.svg';
 import {  Link } from "react-router-dom";
 import Item from './CartItem';
 import {connect} from 'react-redux';
+import './Minicart.css';
 class Minicart extends React.Component {
     constructor(props){
       super(props);
@@ -27,15 +28,15 @@ class Minicart extends React.Component {
     }
      render(){ 
       let isOn = "minicart-content" + (this.state.minicartIsOn ?  " active" : ""); 
-      const content = this.props.counter > 0 ? this.addedItem() : <p className="message">You had no item in your shopping cart</p>;
+      const content = this.props.counter > 0 ? <div className="item-wrapper">{this.addedItem()}</div> : <p className="message">You had no item in your shopping cart</p>;
       return (
         <div className="minicart">
             <span className="minicart-icon" onClick={this.minicartClick}>
             <img src={cartIcon}></img><span className="minicart-number">{this.props.counter}</span>
             </span>
-            <div className={isOn}>
+            <div className={isOn}>              
               {content}
-              <Link to="/checkout" className="action">go to Checkout</Link>
+              <Link to="/checkout" className="action checkout">go to Checkout</Link>
             </div> 
         </div> 
       );
