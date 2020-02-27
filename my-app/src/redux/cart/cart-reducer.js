@@ -24,6 +24,12 @@ const reducer = ( state = initialState, action ) => {
                 ...state,
                 counter: state.counter + 1,
                 cartItems: addItemToCart(state.cartItems, action.payload)
+            }   
+        case CartActionTypes.REMOVE_ITEM:
+            return {
+                ...state,
+                counter: state.counter - 1,
+                cartItems: removeItemFromCart(state.cartItems, action.payload)
             }       
     }
     return state;

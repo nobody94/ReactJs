@@ -10,7 +10,7 @@ addedItem(){
   const data = this.props.items;      
   return data.map((item)=>{
     for(var i =0 ; i< this.props.counter;i++){ 
-      return <Item key={item.id} name={item.name} imageUrl={item.imageUrl} price={item.price} quantity={item.quantity}></Item>
+      return <Item key={item.id} name={item.name} imageUrl={item.imageUrl} price={item.price} quantity={item.quantity} minus={this.decrementItem(item)} plus={this.incrementItem(item)}></Item>
     }          
   });  
 }
@@ -29,4 +29,10 @@ function mapStateToProps(state){
     items:state.cartReducer.cartItems
   }    
 }
-export default connect(mapStateToProps)(Checkout);
+const mapDispatchToProps = dispatch => {
+  return {     
+      incrementItem: (item) => {dispatch(incrementItem(item))},
+      decrementItem: (item) => {dispatch(decrementItem(item))}
+  }
+};
+export default connect(mapStateToProps,mapDispatchToProps)(Checkout);
