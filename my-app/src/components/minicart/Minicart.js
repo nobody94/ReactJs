@@ -28,15 +28,14 @@ class Minicart extends React.Component {
     }
      render(){ 
       let isOn = "minicart-content" + (this.state.minicartIsOn ?  " active" : ""); 
-      const content = this.props.counter > 0 ? <div className="item-wrapper">{this.addedItem()}</div> : <p className="message">You had no item in your shopping cart</p>;
+      const content = this.props.counter > 0 ? <div className="content"><div className="item-wrapper">{this.addedItem()}</div><Link to="/checkout" className="action checkout">go to Checkout</Link></div> : <p className="message">You had no item in your shopping cart</p>;
       return (
         <div className="minicart">
             <span className="minicart-icon" onClick={this.minicartClick}>
             <img src={cartIcon}></img><span className="minicart-number">{this.props.counter}</span>
             </span>
             <div className={isOn}>              
-              {content}
-              <Link to="/checkout" className="action checkout">go to Checkout</Link>
+              {content}              
             </div> 
         </div> 
       );

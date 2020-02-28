@@ -1,0 +1,12 @@
+.checkout-item .no-item{
+    text-align: center;
+    padding: 80px 0;
+}
+.checkout-item .no-item .action{
+    background-color: #333;
+    color: #fff;
+}
+.checkout-item .no-item .action:hover{
+    background-color: transparent;
+    color: #333;
+}
