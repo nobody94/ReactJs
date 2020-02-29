@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Input from '../../components/input/Input';
 class SignUp extends React.Component {
   constructor(props){
     super(props);
@@ -7,6 +7,7 @@ class SignUp extends React.Component {
        name:"",
        password:"",
        email:"",
+       confirmPassword:""
     };   
     this.onChangeHandle = this.onChangeHandle.bind(this);
   }
@@ -15,30 +16,17 @@ class SignUp extends React.Component {
       {
         [e.target.name]: e.target.value
       }
-    )
-    console.log(this.state);
+    )   
   }
   render(){
     return (
       <form className="sign-up">
         <h2 className="title">I do not have a account</h2>
         <p>Sign up with your email and password</p>
-        <div className="input-field">        
-          <input className="input-text" type="text" name="name" value={this.state.name} onChange={this.onChangeHandle}></input>
-          <span className="label">Account name</span>
-        </div>
-        <div className="input-field">        
-          <input className="input-text" type="text" value={this.state.email} name="email" onChange={this.onChangeHandle} ></input>
-          <span className="label">Email</span>
-        </div>
-        <div className="input-field">        
-          <input className="input-text" type="text" value={this.state.password} name="password" onChange={this.onChangeHandle}></input>
-          <span className="label">Password</span>
-        </div>
-        <div className="input-field">        
-          <input className="input-text" type="text" value={this.state.password} name="password" onChange={this.onChangeHandle}></input>
-          <span className="label">Confirm password</span>
-        </div>
+        <Input name="name" type="text" value={this.state.name} onChange={this.onChangeHandle} label="Account name" required></Input>
+        <Input name="email" type="email" value={this.state.email} onChange={this.onChangeHandle} label="Email" required></Input>
+        <Input name="password" type="password" value={this.state.password} onChange={this.onChangeHandle} label="Password" required></Input>
+        <Input name="confirmPassword" type="password" value={this.state.confirmPassword} onChange={this.onChangeHandle} label="Confirm password" required></Input>       
         <div className="btn-actions">
           <button className="action sign-up">Sign up</button>
         </div>

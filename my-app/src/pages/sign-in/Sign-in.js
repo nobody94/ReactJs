@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Input from '../../components/input/Input';
 class SignIn extends React.Component {
   constructor(props){
     super(props);
@@ -15,25 +15,18 @@ class SignIn extends React.Component {
       {
         [e.target.name]: e.target.value
       }
-    )
-    // console.log(this.state);
+    )    
   }
   onSubmit(){
-    // console.log(this.state);
+    
   }
   render(){
     return (
       <form className="sign-in">
         <h2 className="title">I already have an account</h2>
-        <p>Sign in with your email and password</p>
-        <div className="input-field">        
-          <input className="input-text" type="text" value={this.state.email} name="email" onChange={this.onChangeHandle} ></input>
-          <span className="label">Email</span>
-        </div>
-        <div className="input-field">        
-          <input className="input-text" type="text" value={this.state.password} name="password" onChange={this.onChangeHandle}></input>
-          <span className="label">Password</span>
-        </div>
+        <p>Sign in with your email and password</p>        
+        <Input name="email" type="email" value={this.state.email} onChange={this.onChangeHandle} label="Email" required></Input>
+        <Input name="password" type="password" value={this.state.password} onChange={this.onChangeHandle} label="Password" required></Input>
         <div className="btn-actions">
           <button className="action login" onClick={this.onSubmit}>Sign in</button>
           <button className="action google-login">Sign in with google</button>

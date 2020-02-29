@@ -1,25 +1,16 @@
 import React from 'react';
 
-
-
-// const FormInput = ({ handleChange, label, ...otherProps }) => (
-//   <div className='group'>
-//     <input className='form-input' onChange={handleChange} {...otherProps} />
-//     {label ? (
-//       <label
-//         className={`${
-//           otherProps.value.length ? 'shrink' : ''
-//         } form-input-label`}
-//       >
-//         {label}
-//       </label>
-//     ) : null}
-//   </div>
-// );
 class Input extends React.Component {
+    constructor(props){
+        super(props);        
+      }  
     render(){
+        let label = this.props.label ? <label className={`label ${this.props.value.length ? 'active' : ''}`}>{this.props.label}</label> : null;
         return(
-            <div></div>
+            <div className="input-field">
+                <input className="input-text" {...this.props}></input>
+                {label}
+            </div>
         );
     }
 } 
