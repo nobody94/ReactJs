@@ -10,3 +10,26 @@
     background-color: transparent;
     color: #333;
 }
+.checkout-item .image-wrapper{
+    width: 100px;
+}
+.checkout-item table{
+    width: 70%;
+    margin: auto;
+}
+.checkout-item .with-item{
+    padding: 50px 0;
+}
+.checkout-item table thead th{
+    border-bottom: solid 1px #ddd;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.checkout-item table tbody td{
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.checkout-item table tbody tr:not(:last-child) td{
+    border-bottom: solid 1px #ddd;
+}

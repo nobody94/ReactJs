@@ -9,7 +9,8 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
         : cartItem
     );
   }
-
+  // var data = [...cartItems,{...cartItemToAdd}];  
+  // console.log(data);
   return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
 };
 
@@ -27,4 +28,7 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) => {
       ? { ...cartItem, quantity: cartItem.quantity - 1 }
       : cartItem
   );
+
+  // var data = [...cartItems,{...cartItemToRemove}];  
+  // console.log(data);
 };

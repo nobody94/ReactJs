@@ -8,17 +8,7 @@ const initialState = {
 };
 
 const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
-        case CartActionTypes.INCREMENT:
-            return {
-                ...state,
-                counter: state.number + 1
-            }      
-        case CartActionTypes.DECREMENT:
-            return {
-                ...state,
-                counter: state.number - 1
-            }  
+    switch ( action.type ) {       
         case CartActionTypes.ADD_ITEM:
             return {
                 ...state,
