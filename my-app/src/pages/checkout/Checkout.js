@@ -38,7 +38,7 @@ addedItem(){
    </tbody>
  </table>  
   </div>
-   : <div className="no-item"><p>Your cart is empty</p><a className="action go-home" href="/">Go back home</a></div> 
+   : <div className="no-item"><p>Your cart is empty</p><a className="action go-home" href="/">Continue shopping</a></div> 
   return (
     <div className="container">
       <div className="checkout-item">

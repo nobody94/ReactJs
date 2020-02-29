@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter} from 'react-router-dom';
+import { withRouter,Link} from 'react-router-dom';
 class HomeItem extends React.Component {
   constructor(props){
     super(props);  
@@ -10,13 +10,13 @@ class HomeItem extends React.Component {
     const item = 'item' + (this.props.size =='large'? ' large':''); 
     return (
       <div className={item} >
-        <a className="banner" href={this.props.linkUrl}>
+        <Link className="banner" to={this.props.linkUrl}>
           <img src={this.props.imageUrl}></img>
           <div className="content">
             <h3 className="title">{this.props.title}</h3>
             <span className="sub-title">Shop now</span>
           </div>
-        </a>
+        </Link>
       </div>
     );
   }

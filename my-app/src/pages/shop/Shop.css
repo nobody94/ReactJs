@@ -22,6 +22,7 @@
     width: calc(100%/4);
     box-sizing: border-box;
     padding: 0 7px;
+    margin-bottom: 30px;
 }
 .block-wrapper .item .content{
     display: flex;
