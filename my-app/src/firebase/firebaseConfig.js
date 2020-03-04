@@ -1,6 +1,7 @@
-var firebase = require("firebase/app");
-require("firebase/auth");
-require("firebase/firestore");
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+
 
 var config = {
     apiKey: "AIzaSyDjDDDIG10CmTj1wPU2TWFJimpHZrvAEUU",
@@ -14,6 +15,10 @@ var config = {
 };
 
 firebase.initializeApp(config);
-firebase.firestore.settings({timestampsInSnapshots : true});
 
 export default firebase;
+
+var provider = new firebase.auth.GoogleAuthProvider();
+provider.addScope('profile');
+provider.addScope('email');
+export const signInWithGoogle = () => auth.signInWithRedirect(provider);

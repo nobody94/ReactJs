@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../../components/input/Input';
 import './Contact.css';
+
 class Contact extends React.Component {
   constructor(props){
     super(props);
@@ -19,6 +20,7 @@ class Contact extends React.Component {
     )    
   }
   render(){
+ 
     return (
       <div className="container">
         <div className="contact-page">
