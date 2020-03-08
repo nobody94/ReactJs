@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../../components/input/Input';
 import firebase from '../../firebase/firebaseConfig';
+import axios from '../../axios-oreder';
 class SignUp extends React.Component {
   constructor(props){
     super(props);
@@ -21,28 +22,29 @@ class SignUp extends React.Component {
       }
     )   
   }
+
   createUser = ()=>{
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-    .then(()=>{
-      if(this.state.confirmPassword !== this.state.password){
-        this.setState({
-         isMatch:true
-        })
-      }else{
-        this.setState({
-          message:true,         
-        })
-      }   
-      this.setState({        
-        name:"",
-        password:"",
-        email:"",
-        confirmPassword:"",
-      })   
-    })
-    .catch(function(error) {
+    // firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    // .then(()=>{
+    //   if(this.state.confirmPassword !== this.state.password){
+    //     this.setState({
+    //      isMatch:true
+    //     })
+    //   }else{
+    //     this.setState({
+    //       message:true,         
+    //     })
+    //   }   
+    //   this.setState({        
+    //     name:"",
+    //     password:"",
+    //     email:"",
+    //     confirmPassword:"",
+    //   })   
+    // })
+    // .catch(function(error) {
        
-    });
+    // });   
   }
   render(){   
     return (

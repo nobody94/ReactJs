@@ -13,12 +13,14 @@
 .checkout-item .image-wrapper{
     width: 100px;
 }
-.checkout-item table{
+
+.checkout-item .with-item{
+    padding: 50px 0;
     width: 70%;
     margin: auto;
 }
-.checkout-item .with-item{
-    padding: 50px 0;
+.checkout-item table {
+    width: 100%;
 }
 .checkout-item table thead th{
     border-bottom: solid 1px #ddd;
@@ -64,4 +66,19 @@
 }
 .checkout-item table .action.remove:after{
     transform: translate(-50%,-50%) rotate(-45deg);
+}
+.checkout-payment {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.checkout-payment .content{
+    width:calc(50% - 30px);
+}
+.checkout-payment .btn-actions{
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
 }

@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import 'firebase/auth';
+// import 'firebase/auth';
 
 
 var config = {
@@ -18,7 +18,7 @@ firebase.initializeApp(config);
 
 export default firebase;
 
-var provider = new firebase.auth.GoogleAuthProvider();
-provider.addScope('profile');
-provider.addScope('email');
-export const signInWithGoogle = () => auth.signInWithRedirect(provider);
+// var provider = new firebase.auth.GoogleAuthProvider();
+// provider.addScope('profile');
+// provider.addScope('email');
+// export const signInWithGoogle = () => auth.signInWithRedirect(provider);

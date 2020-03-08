@@ -2,7 +2,7 @@ import React from 'react';
 import SignIn from './Sign-in';
 import SignUp from './Sign-up';
 import './Form.css';
-
+import axios from '../../axios-oreder';
 
 class Form extends React.Component {
   constructor(props){
@@ -10,30 +10,16 @@ class Form extends React.Component {
     this.state = {
       
     };   
-  }
-  checkValidity(value,rules){
-    let isValid = true;
-    if(!rules){
-        return true;
-    }
-    if(rules.required){
-        isValid = value.trim() !== '' && isValid;
-    }
-    if(rules.minLength){
-        isValid = value.length >=rules.minLength && isValid
-    }
-    if (rules.maxLength) {
-        isValid = value.length <= rules.maxLength && isValid
-    }
-    if(rules.isEmail){
-        const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-        isValid = pattern.test(value) && isValid
-    }
-    if(rules.isNumeric){
-        const pattern = /^\d+$/;
-        isValid = pattern.test(value) && isValid
-    }
-    return isValid;
+  } 
+  componentDidMount(){
+    axios.get('/user')
+    .then(res=>{
+      console.log('user' + res.data);
+    })
+    // .catch(error => {
+    //   console.log("sign up", error);
+    //   this.setState({error: true});
+    // });
   }
   render(){
     return (

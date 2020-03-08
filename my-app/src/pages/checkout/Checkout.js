@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Item from '../../components/checkout/CheckoutItem';
-import {decrementItem,incrementItem} from '../../redux/cart/cart-action';
+import Payment from '../../components/checkout/CheckoutPayment';
 import './Checkout.css';
 class Checkout extends React.Component {
   constructor(props){
@@ -20,29 +20,31 @@ addedItem(){
       }  
     });
 }
- render(){  
-   let content = this.props.counter > 0 
-  ?  <div className="with-item">
-    <table>
-   <thead>
-      <tr>
-        <th className="image">Product image</th>  
-        <th className="name">Product name</th>  
-        <th className="quantity">Quantity</th>  
-        <th className="price">Price</th>  
-        <th className="remove">Remove</th>  
-      </tr>
-    </thead> 
-   <tbody>
-   {this.addedItem()} 
-   </tbody>
- </table>  
-  </div>
-   : <div className="no-item"><p>Your cart is empty</p><a className="action go-home" href="/">Continue shopping</a></div> 
+ render(){ 
   return (
     <div className="container">
       <div className="checkout-item">
-      {content}
+      {
+        this.props.counter > 0 
+        ?  <div className="with-item">
+          <table>
+            <thead>
+              <tr>
+                <th className="image">Product image</th>  
+                <th className="name">Product name</th>  
+                <th className="quantity">Quantity</th>  
+                <th className="price">Price</th>  
+                <th className="remove">Remove</th>  
+              </tr>
+            </thead> 
+            <tbody>
+            {this.addedItem()}
+            </tbody>
+          </table> 
+          <Payment></Payment>
+        </div>
+         : <div className="no-item"><p>Your cart is empty</p><a className="action go-home" href="/">Continue shopping</a></div> 
+      }
       </div> 
     </div>
   );
