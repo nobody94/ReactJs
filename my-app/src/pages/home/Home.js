@@ -1,13 +1,8 @@
 import React from 'react';
 import Item from '../../components/home/HomeItem';
 import './Home.css';
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-class Home extends React.Component {
-  constructor(props){
-    super(props);  
-
-  }   
+class Home extends React.Component { 
   ListItem(){
     return this.props.data.map((item)=>{
       return(

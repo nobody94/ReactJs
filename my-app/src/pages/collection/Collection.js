@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import CollectionBlock from '../../components/collection/CollectionComponent';
 
@@ -29,22 +28,3 @@ function mapStateToProps(state){
   }    
 }
 export default connect(mapStateToProps)(Collection);
-
-
-// const Collection = ({match,location}) =>{
-//   // const { params: { shopId } } = match;
-//   return(
-//     <div>
-//      <p>
-//         <strong>Match Props: </strong>
-//         <code>{JSON.stringify(match, null, 2)}</code>
-//       </p>
-//       <p>
-//         <strong>Location Props: </strong>
-//         <code>{JSON.stringify(location, null, 2)}</code>
-//       </p>
-//     </div>
-//   );
-// }
-
-// export default Collection;

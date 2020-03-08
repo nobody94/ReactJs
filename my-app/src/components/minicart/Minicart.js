@@ -26,11 +26,13 @@ class Minicart extends React.Component {
       // }      
       return data.map((item)=>{
         for(var i =0 ; i< this.props.counter;i++){ 
-          return <Item key={item.id} 
+          return (
+            <Item key={item.id} 
           name={item.name} 
           imageUrl={item.imageUrl} 
           price={item.price} 
           quantity={item.quantity}></Item>
+          )
         }          
       });  
     }
@@ -40,7 +42,7 @@ class Minicart extends React.Component {
       return (
         <div className="minicart">
             <span className="minicart-icon" onClick={this.minicartClick}>
-            <img src={cartIcon}></img><span className="minicart-number">{this.props.counter}</span>
+            <img src={cartIcon} alt="minicart"></img><span className="minicart-number">{this.props.counter}</span>
             </span>
             <div className={isOn}>              
               {content}              

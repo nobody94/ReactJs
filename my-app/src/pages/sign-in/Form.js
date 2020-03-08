@@ -12,7 +12,7 @@ class Form extends React.Component {
     };   
   } 
   componentDidMount(){
-    axios.get('/user')
+    axios.get('/contact')
     .then(res=>{
       console.log('user' + res.data);
     })

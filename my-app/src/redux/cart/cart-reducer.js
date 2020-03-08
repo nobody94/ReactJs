@@ -29,8 +29,9 @@ const reducer = ( state = initialState, action ) => {
                 cartItem => cartItem.id !== action.payload.id
                 ) 
             };
-    }
-    return state;
+        default:
+            return state;
+    }    
 };
 
 export default reducer;

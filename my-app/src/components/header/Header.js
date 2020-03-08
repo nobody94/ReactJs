@@ -8,7 +8,7 @@ function Header() {
     return (
         <header className="header">
             <div className="container">
-            <Link to="/" className="logo"><img src={logo}></img></Link>
+            <Link to="/" className="logo"><img src={logo} alt="logo"></img></Link>
             <nav className="nav-section">
                 <ul className="navigation">          
                 <li><Link to="/shop">Shop</Link></li>   
