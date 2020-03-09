@@ -12,10 +12,10 @@ class Form extends React.Component {
     };   
   } 
   componentDidMount(){
-    axios.get('/contact')
-    .then(res=>{
-      console.log('user' + res.data);
-    })
+    // axios.get('/contact')
+    // .then(res=>{
+    //   console.log('user' + res.data);
+    // })
     // .catch(error => {
     //   console.log("sign up", error);
     //   this.setState({error: true});

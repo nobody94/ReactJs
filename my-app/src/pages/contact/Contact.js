@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../../components/input/Input';
 import './Contact.css';
+import axios from '../../axios-oreder';
 
 class Contact extends React.Component {
   constructor(props){
@@ -19,6 +20,16 @@ class Contact extends React.Component {
       }
     )    
   }
+  componentDidMount() {
+    // axios.get('/contact')
+    //     .then(res => {
+    //       console.log('contact' + res.data);
+    //     })
+    //     .catch(err => {
+    //       console.log("contact", err);
+    //     });
+  }
+
   render(){
  
     return (

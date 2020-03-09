@@ -23,28 +23,29 @@ class SignUp extends React.Component {
     )   
   }
 
-  createUser = ()=>{
-    // firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-    // .then(()=>{
-    //   if(this.state.confirmPassword !== this.state.password){
-    //     this.setState({
-    //      isMatch:true
-    //     })
-    //   }else{
-    //     this.setState({
-    //       message:true,         
-    //     })
-    //   }   
-    //   this.setState({        
-    //     name:"",
-    //     password:"",
-    //     email:"",
-    //     confirmPassword:"",
-    //   })   
-    // })
-    // .catch(function(error) {
-       
-    // });   
+  createUser() {
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then(()=>{
+      if(this.state.confirmPassword !== this.state.password){
+        this.setState({
+         isMatch:true
+        })
+      }else{
+        this.setState({
+          message:true,         
+        })
+        console.log('message' + this.state.message);
+      }   
+      this.setState({        
+        name:"",
+        password:"",
+        email:"",
+        confirmPassword:"",
+      })   
+    })
+    .catch(function(error) {
+       console.log('error'+ error);
+    });   
   }
   render(){   
     return (
@@ -53,9 +54,9 @@ class SignUp extends React.Component {
         <p>Sign up with your email and password</p>
         <Input name="name" type="text" value={this.state.name} onChange={this.onChangeHandle} label="User name" required></Input>
         <Input name="email" type="email" value={this.state.email} onChange={this.onChangeHandle} label="Email" required></Input>
-        <Input name="password" type="password" value={this.state.password} onChange={this.onChangeHandle} label="Password" required></Input>
-        {this.state.isMatch ? <p className="message">password dont match</p>:null}  
-        <Input name="confirmPassword" type="password" value={this.state.confirmPassword} onChange={this.onChangeHandle} label="Confirm password" required></Input>       
+        <Input name="password" type="password" value={this.state.password} onChange={this.onChangeHandle} label="Password" required></Input>       
+        <Input name="confirmPassword" type="password" value={this.state.confirmPassword} onChange={this.onChangeHandle} label="Confirm password" required></Input>   
+        {this.state.isMatch ? <p className="message">password dont match</p>:null}      
         <div className="btn-actions">
           <button className="action sign-up" onClick={this.createUser()}>Sign up</button>
         </div>      

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'https://firestore.googleapis.com/v1/gecko-8200b/database/'
+    baseURL: 'https://gecko-8200b.firebaseio.com'
 });
 
 export default instance;
