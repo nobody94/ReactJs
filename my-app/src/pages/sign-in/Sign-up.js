@@ -1,7 +1,6 @@
 import React from 'react';
 import Input from '../../components/input/Input';
 import firebase from '../../firebase/firebaseConfig';
-import axios from '../../axios-oreder';
 class SignUp extends React.Component {
   constructor(props){
     super(props);

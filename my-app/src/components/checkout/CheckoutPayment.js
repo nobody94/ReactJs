@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from '../input/Input';
+import {Link} from 'react-router-dom';
 
 class CheckoutPayment extends React.Component{
     constructor(props){
@@ -17,7 +18,7 @@ class CheckoutPayment extends React.Component{
           }
         )   
       }
-    render(){
+    render(){       
         return(
             <div className="checkout-payment">
                 <div className="content">
@@ -33,7 +34,7 @@ class CheckoutPayment extends React.Component{
                 </div>
                 <div className="btn-actions">
                     <button className="action buy">Buy now</button>
-                </div>   
+                </div> 
             </div>
         )
     }

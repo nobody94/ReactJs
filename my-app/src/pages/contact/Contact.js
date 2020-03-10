@@ -10,7 +10,8 @@ class Contact extends React.Component {
        email:"",
        name:"",
        message:"",
-       success:false
+       success:false,
+       isValid:false
     }; 
     this.sendMessage = this.sendMessage.bind(this);
     this.closeBtn = this.closeBtn.bind(this);
@@ -24,7 +25,12 @@ class Contact extends React.Component {
     )  
     console.log(this.state);  
   }
-
+  // checkValidity(){
+  //   const {name,email,message} = this.state;
+  //   if(name||email||message){
+      
+  //   }
+  // }
   sendMessage(){ 
     const data = {
       name:this.state.name,
@@ -53,7 +59,7 @@ class Contact extends React.Component {
           <button className="action close" onClick={this.closeBtn}>close</button>
         </div>
       </div>
-    : null;
+    : null;   
     return (
       <div className="container">
         <div className="contact-page">
@@ -65,7 +71,7 @@ class Contact extends React.Component {
             <div className="btn-actions">
               <button className="action submit" onClick={this.sendMessage}>Send message</button>
             </div>
-            {isSuccess}                 
+            {isSuccess}   
           </div>
           <div className="contact-info">
             <h2>Our Info</h2>

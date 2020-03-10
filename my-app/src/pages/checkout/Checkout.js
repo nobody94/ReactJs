@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Item from '../../components/checkout/CheckoutItem';
 import Payment from '../../components/checkout/CheckoutPayment';
+import {Link} from 'react-router-dom';
 import './Checkout.css';
 class Checkout extends React.Component {
   constructor(props){
@@ -43,7 +44,7 @@ addedItem(){
           </table> 
           <Payment></Payment>
         </div>
-         : <div className="no-item"><p>Your cart is empty</p><a className="action go-home" href="/">Continue shopping</a></div> 
+         : <div className="no-item"><p>Your cart is empty</p><Link className="action go-home" to="/">Continue shopping</Link></div> 
       }
       </div> 
     </div>
