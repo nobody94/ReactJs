@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from '../../components/input/Input';
 import './Contact.css';
-import axios from '../../axios-oreder';
+import firebase from '../../firebase/firebaseConfig';
 
 class Contact extends React.Component {
   constructor(props){
@@ -9,29 +9,51 @@ class Contact extends React.Component {
     this.state = {      
        email:"",
        name:"",
-       message:""
-    };   
-    this.onChangeHandle = this.onChangeHandle.bind(this);
+       message:"",
+       success:false
+    }; 
+    this.sendMessage = this.sendMessage.bind(this);
+    this.closeBtn = this.closeBtn.bind(this);
   }  
-  onChangeHandle = (e) =>{  
+  onChangeHandle = (event) =>{     
     this.setState(
-      {
-        [e.target.name]: e.target.value
+      {       
+        ...this.state, 
+        [event.target.name]: event.target.value        
       }
-    )    
-  }
-  componentDidMount() {
-    // axios.get('/contact')
-    //     .then(res => {
-    //       console.log('contact' + res.data);
-    //     })
-    //     .catch(err => {
-    //       console.log("contact", err);
-    //     });
+    )  
+    console.log(this.state);  
   }
 
+  sendMessage(){ 
+    const data = {
+      name:this.state.name,
+      email:this.state.email,
+      message:this.state.message
+    }
+    firebase.database().ref().child('contact/').push(data);  
+    this.setState({ 
+      email:"",
+      name:"",
+      message:"",
+      success:true
+    })
+    // console.log(this.state); 
+  }
+  closeBtn(){
+    this.setState({      
+      success:false
+    })
+  }
   render(){
- 
+    const isSuccess =  this.state.success 
+    ? <div className="popup success">
+        <div className="content">
+          <p>Sending message success</p>
+          <button className="action close" onClick={this.closeBtn}>close</button>
+        </div>
+      </div>
+    : null;
     return (
       <div className="container">
         <div className="contact-page">
@@ -41,8 +63,9 @@ class Contact extends React.Component {
             <Input name="email" type="email" value={this.state.email} onChange={this.onChangeHandle} label="Email" required></Input>
             <textarea name="message" value={this.state.message} onChange={this.onChangeHandle} placeholder="Your Message" rows="7"></textarea>
             <div className="btn-actions">
-              <button className="action submit" >Send message</button>
+              <button className="action submit" onClick={this.sendMessage}>Send message</button>
             </div>
+            {isSuccess}                 
           </div>
           <div className="contact-info">
             <h2>Our Info</h2>
@@ -51,7 +74,7 @@ class Contact extends React.Component {
               <li><strong>Mail:</strong> support@domain.com</li>
               <li><strong>Phone:</strong> 820-885-3321</li>
             </ul>
-          </div>       
+          </div>        
         </div>
       </div>
     );
