@@ -51,3 +51,6 @@ img{
 .popup .content p{
   font-size: 18px;
 }
+.message.error{
+  color:red;
+}
