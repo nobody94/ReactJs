@@ -10,7 +10,8 @@ class SignUp extends React.Component {
        email:"",
        confirmPassword:"",
        message:false,
-       isMatch:false
+       isMatch:false,
+       notEmail:false
     };   
     this.onChangeHandle = this.onChangeHandle.bind(this);
     this.createUser = this.createUser.bind(this);
@@ -26,30 +27,40 @@ class SignUp extends React.Component {
 
   createUser(e) {
     e.preventDefault();
-    if(this.state.confirmPassword !== this.state.password){
+    const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    const test = pattern.test(this.state.email);
+    if(test){
       this.setState({
-       isMatch:true,
-       name:"",
-       password:"",
-       email:"",
-       confirmPassword:"",
-      })
-    }else{ 
-      this.setState({message:true,})     
-      firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(()=>{     
-        this.setState({        
-          name:"",
-          password:"",
-          email:"",
-          confirmPassword:"",          
-        })   
-      })
-      .catch(function(error) {
-        console.log('error'+ error);
-      });   
-    }  
-    // console.log(this.state);
+        notEmail:false
+      });
+      if(this.state.confirmPassword !== this.state.password){
+        this.setState({
+         isMatch:true,
+         name:"",
+         password:"",
+         email:"",
+         confirmPassword:"",
+        })
+      }else{ 
+        this.setState({message:true,})     
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(()=>{     
+          this.setState({        
+            name:"",
+            password:"",
+            email:"",
+            confirmPassword:"",          
+          })   
+        })
+        .catch(function(error) {
+          console.log('error'+ error);
+        });   
+      }  
+    }else{
+      this.setState({
+        notEmail:true
+      });
+    }
   }
   closeBtn(){
     this.setState({      
@@ -63,6 +74,7 @@ class SignUp extends React.Component {
         <p>Sign up with your email and password</p>
         <Input name="name" type="text" value={this.state.name} onChange={this.onChangeHandle} label="User name" required></Input>
         <Input name="email" type="email" value={this.state.email} onChange={this.onChangeHandle} label="Email" required></Input>
+        {this.state.notEmail ? <p className="message error">The email address must be in xxx@yyy.zzz format. Please try again</p> : null}
         <Input name="password" type="password" value={this.state.password} onChange={this.onChangeHandle} label="Password" required></Input>       
         <Input name="confirmPassword" type="password" value={this.state.confirmPassword} onChange={this.onChangeHandle} label="Confirm password" required></Input>   
         {this.state.isMatch ? <p className="message error">Password dont match please try again</p>:null}      

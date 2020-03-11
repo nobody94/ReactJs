@@ -11,38 +11,45 @@ class Contact extends React.Component {
        name:"",
        message:"",
        success:false,
-       isValid:false
+       notEmail:false
     }; 
     this.sendMessage = this.sendMessage.bind(this);
     this.closeBtn = this.closeBtn.bind(this);
   }  
-  onChangeHandle = (event) =>{     
+  onChangeHandle = (e) =>{     
     this.setState(
       {       
         ...this.state, 
-        [event.target.name]: event.target.value        
+        [e.target.name]: e.target.value        
       }
     )  
-    console.log(this.state);  
+    // console.log(this.state);  
   }
-  // checkValidity(){
-  //   const {name,email,message} = this.state;
-  //   if(name||email||message){
-      
-  //   }
-  // }
-  sendMessage(){ 
-    const data = {
-      name:this.state.name,
-      email:this.state.email,
-      message:this.state.message
+ 
+  sendMessage(e){ 
+    e.preventDefault();
+    const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    const test = pattern.test(this.state.email);
+    if(test){
+      const data = {
+        name:this.state.name,
+        email:this.state.email,
+        message:this.state.message
+      }
+      firebase.database().ref().child('contact/').push(data);  
+      this.setState({
+        success:true,
+        notEmail:false
+      })
+    } else {
+      this.setState({
+        notEmail:true
+      })
     }
-    firebase.database().ref().child('contact/').push(data);  
     this.setState({ 
       email:"",
       name:"",
-      message:"",
-      success:true
+      message:"",      
     })
     // console.log(this.state); 
   }
@@ -51,15 +58,7 @@ class Contact extends React.Component {
       success:false
     })
   }
-  render(){
-    const isSuccess =  this.state.success 
-    ? <div className="popup success">
-        <div className="content">
-          <p>Sending message success</p>
-          <button className="action close" onClick={this.closeBtn}>close</button>
-        </div>
-      </div>
-    : null;   
+  render(){    
     return (
       <div className="container">
         <div className="contact-page">
@@ -67,11 +66,21 @@ class Contact extends React.Component {
             <h2>Send a message</h2>
             <Input name="name" type="text" value={this.state.name} onChange={this.onChangeHandle} label="Name" required></Input>
             <Input name="email" type="email" value={this.state.email} onChange={this.onChangeHandle} label="Email" required></Input>
+            {this.state.notEmail ? <p className="message error">The email address must be in xxx@yyy.zzz format. Please try again</p> : null}
             <textarea name="message" value={this.state.message} onChange={this.onChangeHandle} placeholder="Your Message" rows="7"></textarea>
             <div className="btn-actions">
               <button className="action submit" onClick={this.sendMessage}>Send message</button>
             </div>
-            {isSuccess}   
+            {
+              this.state.success 
+              ? <div className="popup success">
+                  <div className="content">
+                    <p>Sending message success</p>
+                    <button className="action close" onClick={this.closeBtn}>close</button>
+                  </div>
+                </div>
+              : null
+            }   
           </div>
           <div className="contact-info">
             <h2>Our Info</h2>
