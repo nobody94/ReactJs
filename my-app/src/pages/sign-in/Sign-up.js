@@ -31,7 +31,11 @@ class SignUp extends React.Component {
     const test = pattern.test(this.state.email);
     if(test){
       this.setState({
-        notEmail:false
+        notEmail:false,
+        name:"",
+        password:"",
+        email:"",
+        confirmPassword:"",   
       });
       if(this.state.confirmPassword !== this.state.password){
         this.setState({
@@ -43,15 +47,7 @@ class SignUp extends React.Component {
         })
       }else{ 
         this.setState({message:true,})     
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(()=>{     
-          this.setState({        
-            name:"",
-            password:"",
-            email:"",
-            confirmPassword:"",          
-          })   
-        })
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)      
         .catch(function(error) {
           console.log('error'+ error);
         });   

@@ -7,6 +7,7 @@ import Shop from './pages/shop/Shop';
 import Form from './pages/sign-in/Form';
 import Checkout from './pages/checkout/Checkout';
 import Header from './components/header/Header';
+import Logout from './pages/logout/Logout';
 import Error from './pages/error/Error';
 function App()  {  
   return (
@@ -28,8 +29,11 @@ function App()  {
         <Route exact path="/checkout">
          <Checkout></Checkout>
         </Route>
-        <Route exact path="/noroute">
+        {/* <Route exact path="/noroute">
          <Error></Error>
+        </Route> */}
+        <Route exact path="/logout">
+         <Logout></Logout>
         </Route>
       </Switch>
   </Router>
