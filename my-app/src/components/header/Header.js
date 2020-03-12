@@ -27,12 +27,10 @@ class Header extends React.Component{
     }
     logoutAccount(e){
         e.preventDefault();
-        firebase.auth().signOut().then(function() {            
-            // this.props.history.push('/logout');
-            // console.log(this.props.history);
+        firebase.auth().signOut().then(function() { 
             console.log('logout success');
           }).catch(function(error) {
-            // An error happened.
+            console.log(error);
           });
     }  
     render(){
@@ -47,7 +45,7 @@ class Header extends React.Component{
                     <li>
                         {
                             this.state.user 
-                            ? <Link onClick={this.logoutAccount}>Logout</Link>
+                            ? <span onClick={this.logoutAccount}><Link to="/logout">Logout</Link></span>
                             : <Link to="/sign-in">Sign in</Link>
                         }
                     </li> 

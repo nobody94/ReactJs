@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from '../../components/input/Input';
+import Input from '../input/Input';
 import firebase from '../../firebase/firebaseConfig';
 class SignUp extends React.Component {
   constructor(props){

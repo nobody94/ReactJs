@@ -1,11 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import './Logout.css';
 function Logout(){
     return(
         <div className="container">
-            <p className="message">You been logout</p>
-            <Link to="/">Go back home</Link>
-            <Link to='/sign-in'>Login</Link>
+            <div className="logout-page">
+                <p className="message">You been logout</p>                
+                <Link to='/sign-in' className="action go login">Login</Link>
+            </div>
         </div>
     )
 }
