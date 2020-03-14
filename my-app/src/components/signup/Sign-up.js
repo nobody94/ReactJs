@@ -11,7 +11,8 @@ class SignUp extends React.Component {
        confirmPassword:"",
        message:false,
        isMatch:false,
-       notEmail:false
+       notEmail:false,
+       emailIsExist:false
     };   
     this.onChangeHandle = this.onChangeHandle.bind(this);
     this.createUser = this.createUser.bind(this);
@@ -29,6 +30,7 @@ class SignUp extends React.Component {
     e.preventDefault();
     const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     const test = pattern.test(this.state.email);
+    const currentComponent = this;
     if(test){
       this.setState({
         notEmail:false,
@@ -45,11 +47,22 @@ class SignUp extends React.Component {
          email:"",
          confirmPassword:"",
         })
-      }else{ 
-        this.setState({message:true,})     
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)      
+      }else{           
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)  
+        .then(function(){
+          currentComponent.setState({           
+            message:true
+          })
+        })    
         .catch(function(error) {
-          console.log('error'+ error);
+          var errorCode = error.code;
+          console.log(errorCode);         
+          if(errorCode == "auth/email-already-in-use"){
+             currentComponent.setState({
+              message:false,
+              emailIsExist:true
+            })
+          } 
         });   
       }  
     }else{
@@ -71,6 +84,7 @@ class SignUp extends React.Component {
         <Input name="name" type="text" value={this.state.name} onChange={this.onChangeHandle} label="User name" required></Input>
         <Input name="email" type="email" value={this.state.email} onChange={this.onChangeHandle} label="Email" required></Input>
         {this.state.notEmail ? <p className="message error">The email address must be in xxx@yyy.zzz format. Please try again</p> : null}
+        {this.state.emailIsExist ? <p className="message error">This email is already sign up. Please sign in or create other account</p>:null}
         <Input name="password" type="password" value={this.state.password} onChange={this.onChangeHandle} label="Password" required></Input>       
         <Input name="confirmPassword" type="password" value={this.state.confirmPassword} onChange={this.onChangeHandle} label="Confirm password" required></Input>   
         {this.state.isMatch ? <p className="message error">Password dont match please try again</p>:null}      

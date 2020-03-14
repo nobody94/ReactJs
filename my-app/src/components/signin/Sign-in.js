@@ -13,6 +13,7 @@ class SignIn extends React.Component {
     };   
     this.onChangeHandle = this.onChangeHandle.bind(this);
     this.loginAccount = this.loginAccount.bind(this);
+    // this.signInWithGoogle = this.signInWithGoogle.bind(this);
   }  
   onChangeHandle = (e) =>{  
     this.setState(
@@ -25,6 +26,7 @@ class SignIn extends React.Component {
     e.preventDefault();
     const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     const test = pattern.test(this.state.email);
+    const currentComponent = this;
     if(test){
       this.setState({
         notEmail:false,
@@ -39,23 +41,50 @@ class SignIn extends React.Component {
         var errorCode = error.code;
         var errorMessage = error.message;
         if (errorCode === 'auth/wrong-password') {
-          alert('Wrong password.');
+          // alert('Wrong password.');
           // this.setState({wrongPassword:true})
-        } else if(errorCode === "auth/user-not-found"){
-          alert('User not found.');
+          currentComponent.setState({wrongPassword:true})
+        } else{
+          currentComponent.setState({wrongPassword:false})
+        }
+        if(errorCode === "auth/user-not-found"){
+          // alert('User not found.');
           // alert(errorMessage);
-          // this.setState({wrongPassword:false})
+          currentComponent.setState({emailNotExist:true})
+        } else {
+          currentComponent.setState({emailNotExist:false})
         }
         console.log(error);
-        // this.setState({
-        //   emailNotExist:true
-        // })
       }); 
     }else{
-      this.setState({notEmail:true})
+      this.setState({
+        notEmail:true,
+        emailNotExist:false,
+        wrongPassword:false
+      })
     }
   }
+  signInWithGoogle(){
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
+  }
   render(){
+    
     return (
       <form className="sign-in">
         <h2 className="title">I already have an account</h2>
@@ -67,7 +96,7 @@ class SignIn extends React.Component {
         {this.state.wrongPassword ? <p className="message error">Wrong password. Please try again</p>:null}
         <div className="btn-actions">
           <button className="action login" onClick={(e)=>this.loginAccount(e)}>Sign in</button>
-          <button className="action google-login">Sign in with google</button>
+          <button className="action google-login" onClick={this.signInWithGoogle}>Sign in with google</button>
         </div>
       </form>
     );

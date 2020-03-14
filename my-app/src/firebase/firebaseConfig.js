@@ -22,4 +22,4 @@ export default firebase;
 // var provider = new firebase.auth.GoogleAuthProvider();
 // provider.addScope('profile');
 // provider.addScope('email');
-// export const signInWithGoogle = () => auth.signInWithRedirect(provider);
+// export const signInWithGoogle = () => auth.signInWithPopup(provider);

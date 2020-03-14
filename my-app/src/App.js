@@ -29,9 +29,9 @@ function App()  {
         <Route exact path="/checkout">
          <Checkout></Checkout>
         </Route>
-        {/* <Route exact path="/noroute">
+        <Route >
          <Error></Error>
-        </Route> */}
+        </Route>
         <Route exact path="/logout">
          <Logout></Logout>
         </Route>
