@@ -22,6 +22,11 @@ class Collection extends React.Component {
     );
   }
 }
+// function Collection ({match}){
+//  return  <div>
+//  <h3>ID: {this.props.data.id}</h3>
+// </div>
+// }
 function mapStateToProps(state){
   return{
     data : state.shopData,

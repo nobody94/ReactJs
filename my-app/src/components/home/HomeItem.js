@@ -6,7 +6,7 @@ class HomeItem extends React.Component{
   const item = 'item' + (this.props.size =='large'? ' large':''); 
   return (
     <div className={item} >
-      <Link className="banner" to={this.props.linkUrl}>
+      <Link className="banner" to={`/shop/${this.props.title}`}>
         <img src={this.props.imageUrl}></img>
         <div className="content">
           <h3 className="title">{this.props.title}</h3>

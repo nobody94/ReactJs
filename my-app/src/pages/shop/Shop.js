@@ -11,11 +11,15 @@ class Shop  extends React.Component{
    
 } 
   
- render(){    
+ render(){ 
+  //  let shop = this.props.data.map((item)=>{
+  //    return item.routeName
+  //  });
+  //  console.log(shop);
   return (
     <div className="container">
      <Route exact path='/shop'><Category></Category></Route>
-     <Route exact path={`/shop/:shopId`}><Collection></Collection></Route>
+     <Route exact path={`/shop/:name`}><Collection></Collection></Route>
     </div>
   )
  };
@@ -31,7 +35,7 @@ export default connect(mapStateToProps)(Shop);
 // const Shop  = ({ match }) => (
 //   <div className='container'>
 //     <Route exact path='/shop'><Category></Category></Route>
-//     <Route path={`/shop/:shopId`}><Collection></Collection></Route>
+//     <Route path={`${match.path}/:shopId`}><Collection></Collection></Route>
 //   </div>
 // );
 
