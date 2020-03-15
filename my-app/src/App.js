@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
 import Home from './pages/home/Home';
-import Contact from './pages/contact/Contact';
+import ContactPage from './pages/contact/Contact';
 import Shop from './pages/shop/Shop';
 import Form from './pages/sign-in/Form';
 import Checkout from './pages/checkout/Checkout';
@@ -14,27 +14,13 @@ function App()  {
     <Router>
       <Header></Header>
       <Switch>
-        <Route exact path="/">
-          <Home></Home>
-        </Route>
-        <Route exact path="/contact">
-          <Contact></Contact>
-        </Route>
-        <Route path="/shop">
-          <Shop></Shop>
-        </Route>
-        <Route exact path="/sign-in">
-         <Form></Form>
-        </Route>
-        <Route exact path="/checkout">
-         <Checkout></Checkout>
-        </Route>
-        <Route >
-         <Error></Error>
-        </Route>
-        <Route exact path="/logout">
-         <Logout></Logout>
-        </Route>
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/contact" component={ContactPage}/>
+        <Route path="/shop" component={Shop}/>
+        <Route exact path="/sign-in" component={Form}/>
+        <Route exact path="/checkout" component={Checkout}/>     
+        <Route exact path="/logout" component={Logout}/>
+        <Route component={Error}/>
       </Switch>
   </Router>
   );
