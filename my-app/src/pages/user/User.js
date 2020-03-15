@@ -1,0 +1,13 @@
+import React from 'react';
+import {Route} from 'react-router-dom';
+import Detail from '../../components/user/User-detail';
+const User = ({match}) =>{
+    // console.log(match.path);
+    return(
+        <div className='container'>
+        <Route path={`${match.path}/:userId`} component={Detail}/>
+      </div>
+       );
+}
+
+export default User;

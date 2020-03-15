@@ -16,7 +16,7 @@ import CollectionBlock from '../../components/collection/CollectionComponent';
      });
   return(
   <div className="collection-view">
-    {listItem}
+    {shopId ? listItem : null}
   </div>
   );
  }

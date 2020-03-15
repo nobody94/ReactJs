@@ -31,14 +31,7 @@ class SignUp extends React.Component {
     const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     const test = pattern.test(this.state.email);
     const currentComponent = this;
-    if(test){
-      this.setState({
-        notEmail:false,
-        name:"",
-        password:"",
-        email:"",
-        confirmPassword:"",   
-      });
+    if(test){     
       if(this.state.confirmPassword !== this.state.password){
         this.setState({
          isMatch:true,
@@ -49,10 +42,15 @@ class SignUp extends React.Component {
         })
       }else{           
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)  
-        .then(function(){
+        .then(function(user){
           currentComponent.setState({           
             message:true
           })
+          if(user) {
+            return user.user.updateProfile({
+              displayName: this.state.name,
+           })
+          }
         })    
         .catch(function(error) {
           var errorCode = error.code;
@@ -64,7 +62,14 @@ class SignUp extends React.Component {
             })
           } 
         });   
-      }  
+      } 
+      this.setState({
+        notEmail:false,
+        name:"",
+        password:"",
+        email:"",
+        confirmPassword:"",   
+      }); 
     }else{
       this.setState({
         notEmail:true

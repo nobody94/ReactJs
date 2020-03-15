@@ -22,6 +22,7 @@ class SignIn extends React.Component {
       }
     )    
   }
+ 
   loginAccount(e){
     e.preventDefault();
     const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -35,7 +36,14 @@ class SignIn extends React.Component {
       });
       firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(()=>{
-        
+        firebase.auth().onAuthStateChanged(user => {
+          if(user) {
+            const currentUser =  firebase.auth().currentUser;
+            const userId = currentUser.uid;
+            // console.log(currentUser);
+            window.location = `/user/${userId}`;
+          }
+        });
       })
       .catch(function(error) {
         var errorCode = error.code;

@@ -9,18 +9,20 @@ import Checkout from './pages/checkout/Checkout';
 import Header from './components/header/Header';
 import Logout from './pages/logout/Logout';
 import Error from './pages/error/Error';
-function App()  {  
+import User from './pages/user/User';
+const App = () =>  { 
   return (
     <Router>
       <Header></Header>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/contact" component={ContactPage}/>
-        <Route exact path="/shop" component={Shop}/>
+        <Route path="/shop" component={Shop}/>
         <Route exact path="/sign-in" component={Form}/>
         <Route exact path="/checkout" component={Checkout}/>     
         <Route exact path="/logout" component={Logout}/>
-        <Route component={Error}/>
+        <Route path='/user' component={User}/>        
+        <Route component={Error}/>        
       </Switch>
   </Router>
   );
