@@ -6,13 +6,13 @@ import CollectionBlock from '../../components/collection/CollectionComponent';
   const shopId =  props.match.params.shopId;
   console.log(shopId);
   const shopItem = props.data.find((item)=>{
-    return shopId == item.routeName
+    return shopId === item.routeName
   });
   console.log(shopItem);
   const listItem = [shopItem].map((item)=>{
-      return(
-          <CollectionBlock key={item.id} title={item.title} product={item.items}></CollectionBlock> 
-        )
+    return(
+      <CollectionBlock key={item.id} title={item.title} product={item.items}></CollectionBlock> 
+    )
      });
   return(
   <div className="collection-view">

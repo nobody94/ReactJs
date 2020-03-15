@@ -29,14 +29,14 @@ export default function(){
       imageUrl: women,
       size: 'large',
       id: 4,
-      linkUrl: 'shop/women'
+      linkUrl: 'shop/womens'
     },
     {
       title: 'men',
       imageUrl: men,
       size: 'large',
       id: 5,
-      linkUrl: 'shop/men'
+      linkUrl: 'shop/mens'
     }
   ]
 };

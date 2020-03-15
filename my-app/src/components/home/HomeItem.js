@@ -4,7 +4,7 @@ import { withRouter,Link} from 'react-router-dom';
 const HomeItem = (props,{match}) =>{
   const item = 'item' + (props.size =='large'? ' large':''); 
   const link = props.match.url;
-  console.log(link);
+  // console.log(link);
     return (
       <div className={item} >
         <Link className="banner" to={`${link}${props.linkUrl}`} >
