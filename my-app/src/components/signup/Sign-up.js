@@ -35,22 +35,23 @@ class SignUp extends React.Component {
       if(this.state.confirmPassword !== this.state.password){
         this.setState({
          isMatch:true,
-         name:"",
-         password:"",
-         email:"",
-         confirmPassword:"",
+        //  name:"",
+        //  password:"",
+        //  email:"",
+        //  confirmPassword:"",
         })
       }else{           
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)  
         .then(function(user){
-          currentComponent.setState({           
-            message:true
-          })
           if(user) {
+            console.log('username:'+currentComponent.state.name);
             return user.user.updateProfile({
-              displayName: this.state.name,
-           })
+              displayName: currentComponent.state.name,
+           });
           }
+          currentComponent.setState({           
+            message:true,
+          })
         })    
         .catch(function(error) {
           var errorCode = error.code;
@@ -61,14 +62,20 @@ class SignUp extends React.Component {
               emailIsExist:true
             })
           } 
-        });   
+        }); 
+        // this.setState({
+        //     name:"",
+        //     password:"",
+        //     email:"",
+        //     confirmPassword:"",   
+        //   });
       } 
       this.setState({
         notEmail:false,
         name:"",
         password:"",
         email:"",
-        confirmPassword:"",   
+        confirmPassword:"",  
       }); 
     }else{
       this.setState({

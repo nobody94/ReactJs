@@ -13,13 +13,14 @@ class Header extends React.Component{
         }; 
         this.logoutAccount = this.logoutAccount.bind(this);
     }
-    componentDidMount(){
-        this.authListener()
+    componentWillMount(){
+        this.authListener()       
     }
     authListener(){
         firebase.auth().onAuthStateChanged((user)=>{
             if(user){
                 this.setState({user});
+                console.log(user);
             } else {
                 this.setState({user:null})
             }
