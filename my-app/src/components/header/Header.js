@@ -37,7 +37,7 @@ class Header extends React.Component{
           });
     }  
     render(){
-        console.log(this.props.isSignIn);
+        // console.log(this.props.isSignIn);
         return (
             <header className="header">
                 <div className="container">

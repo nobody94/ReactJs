@@ -1,6 +1,6 @@
 const userTypes = {
     ISSIGNIN:'ISSIGNIN',
-    ISLOGOUT:'ISLOGOUT'
+    ISLOGOUT:'ISLOGOUT',
 };
   
 export default userTypes;

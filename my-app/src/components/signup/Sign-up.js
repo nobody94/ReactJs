@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../input/Input';
 import firebase from '../../firebase/firebaseConfig';
+
 class SignUp extends React.Component {
   constructor(props){
     super(props);
@@ -12,11 +13,11 @@ class SignUp extends React.Component {
        message:false,
        isMatch:false,
        notEmail:false,
-       emailIsExist:false
+       emailIsExist:false,
     };   
     this.onChangeHandle = this.onChangeHandle.bind(this);
     this.createUser = this.createUser.bind(this);
-    this.closeBtn = this.closeBtn.bind(this);
+    this.closeBtn = this.closeBtn.bind(this);    
   }
   onChangeHandle = (e) =>{  
     this.setState(
@@ -35,27 +36,39 @@ class SignUp extends React.Component {
       if(this.state.confirmPassword !== this.state.password){
         this.setState({
          isMatch:true,
-        //  name:"",
-        //  password:"",
-        //  email:"",
-        //  confirmPassword:"",
+         name:"",
+         password:"",
+         email:"",
+         confirmPassword:"",
         })
-      }else{           
+      }else{  
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)  
         .then(function(user){
           if(user) {
-            console.log('username:'+currentComponent.state.name);
-            return user.user.updateProfile({
+            console.log('username: '+currentComponent.state.name);
+            user.user.updateProfile({
               displayName: currentComponent.state.name,
            });
-          }
+            currentComponent.setState({           
+               name:"",
+               password:"",
+               email:"",
+               confirmPassword:"",
+            })
+          }        
           currentComponent.setState({           
             message:true,
           })
         })    
         .catch(function(error) {
           var errorCode = error.code;
-          console.log(errorCode);         
+          console.log(errorCode);    
+          currentComponent.setState({           
+            name:"",
+            password:"",
+            email:"",
+            confirmPassword:"",
+         })     
           if(errorCode == "auth/email-already-in-use"){
              currentComponent.setState({
               message:false,
@@ -63,32 +76,38 @@ class SignUp extends React.Component {
             })
           } 
         }); 
-        // this.setState({
-        //     name:"",
-        //     password:"",
-        //     email:"",
-        //     confirmPassword:"",   
-        //   });
+        firebase.auth().onAuthStateChanged(user => {
+            if(user) { 
+              const currentUser =  firebase.auth().currentUser; 
+              console.log(currentUser.uid); 
+              const data = {
+                id:currentUser.uid,
+                email:currentUser.email,                
+              }
+              firebase.database().ref('users/' + currentUser.uid).set(data);
+            }          
+        });
       } 
       this.setState({
         notEmail:false,
-        name:"",
-        password:"",
-        email:"",
-        confirmPassword:"",  
       }); 
     }else{
       this.setState({
-        notEmail:true
+        notEmail:true,
+        name:"",
+        password:"",
+        email:"",
+        confirmPassword:"",
       });
     }
   }
+ 
   closeBtn(){
     this.setState({      
       message:false
     })
   }
-  render(){   
+  render(){ 
     return (
       <form className="sign-up">
         <h2 className="title">I do not have a account</h2>
@@ -118,4 +137,4 @@ class SignUp extends React.Component {
   } 
 }
 
-export default SignUp;
+export default SignUp

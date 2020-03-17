@@ -1,7 +1,7 @@
 import userTypes from './user-types';
 
 const initialState = {
-  isSignIn:false
+  isSignIn:false,
 };
 
 const reducer = ( state = initialState, action ) =>{

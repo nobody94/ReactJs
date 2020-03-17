@@ -1,6 +1,7 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 import Detail from '../../components/user/User-detail';
+import './User.css';
 const User = ({match}) =>{
     // console.log(match.path);
     return(
