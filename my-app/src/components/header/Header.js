@@ -4,28 +4,30 @@ import Minicart from '../minicart/Minicart';
 import logo from '../../assets/crown.svg';
 import './Header.css';
 import firebase from '../../firebase/firebaseConfig';
+import {connect} from 'react-redux';
 
 class Header extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-         user:{},        
+        //  user:{},     
+        user:false   
         }; 
         this.logoutAccount = this.logoutAccount.bind(this);
     }
-    componentWillMount(){
-        this.authListener()       
-    }
-    authListener(){
-        firebase.auth().onAuthStateChanged((user)=>{
-            if(user){
-                this.setState({user});
-                console.log(user);
-            } else {
-                this.setState({user:null})
-            }
-        })
-    }
+    // componentWillMount(){
+    //     this.authListener()       
+    // }
+    // authListener(){
+    //     firebase.auth().onAuthStateChanged((user)=>{
+    //         if(user){
+    //             this.setState({user});
+    //             console.log(user);
+    //         } else {
+    //             this.setState({user:null})
+    //         }
+    //     })
+    // }
     logoutAccount(e){
         e.preventDefault();
         firebase.auth().signOut().then(function() { 
@@ -35,6 +37,7 @@ class Header extends React.Component{
           });
     }  
     render(){
+        console.log(this.props.isSignIn);
         return (
             <header className="header">
                 <div className="container">
@@ -45,7 +48,7 @@ class Header extends React.Component{
                     <li><Link to="/contact">Contact</Link></li>
                     <li>
                         {
-                            this.state.user 
+                            this.props.isSignIn 
                             ? <span onClick={this.logoutAccount}><Link to="/logout">Logout</Link></span>
                             : <Link to="/sign-in">Sign in</Link>
                         }
@@ -60,6 +63,10 @@ class Header extends React.Component{
         );
     }
   }
-  
-  export default Header;
+  function mapStateToProps(state){
+    return{    
+      isSignIn: state.userReducer.isSignIn
+    }    
+  }
+  export default connect(mapStateToProps)(Header);
   

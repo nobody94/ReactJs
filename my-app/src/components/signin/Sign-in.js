@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../input/Input';
 import firebase from '../../firebase/firebaseConfig';
+
 class SignIn extends React.Component {
   constructor(props){
     super(props);
@@ -41,9 +42,10 @@ class SignIn extends React.Component {
             const currentUser =  firebase.auth().currentUser;
             const userId = currentUser.uid;
             // console.log(currentUser);
-            window.location = `/user/${userId}`;
+            window.location = `/user/${userId}`;  
           }
-        });
+         
+        });        
       })
       .catch(function(error) {
         var errorCode = error.code;
