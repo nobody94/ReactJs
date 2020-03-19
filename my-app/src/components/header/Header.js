@@ -20,6 +20,11 @@ class Header extends React.Component{
         mobileNav: !this.state.mobileNav
       })
     }
+    componentWillMount(){
+      this.setState({
+        mobileNav: false
+      })
+    }
     render(){
       const isOn = this.state.mobileNav ? 'active' : '';
         return (

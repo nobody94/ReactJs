@@ -18,6 +18,11 @@ class Minicart extends React.Component {
         minicartIsOn : !this.state.minicartIsOn
       })
     }
+    componentWillMount(){
+      this.setState({
+        minicartIsOn:false
+      })
+    }
     addedItem(){
       const data = this.props.items;   
       // console.log(data);   
