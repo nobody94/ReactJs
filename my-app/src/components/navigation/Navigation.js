@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import firebase from '../../firebase/firebaseConfig';
 import {connect} from 'react-redux';
 import './Navigation.css';
+import MediaQuery from 'react-responsive';
 
 class Navigation extends React.Component{
     constructor(props){
@@ -31,19 +32,23 @@ class Navigation extends React.Component{
             console.log(error);
         });
     }  
-    render(){        
+    render(){  
+        const isOn =  this.props.mobileNav ? 'active' : '';   
         return (
-            <nav className="nav-section">
+            <nav className={`nav-section ${isOn}`}>
+                 <MediaQuery maxDeviceWidth={767}>
+                    <span className="close-mobile-menu" onClick={this.props.closeBtn}>Menu</span>
+                </MediaQuery>               
                 <ul className="navigation">          
-                <li><Link to="/shop">Shop</Link></li>   
-                <li><Link to="/contact">Contact</Link></li>
-                <li>
-                    {
-                        this.props.isSignIn 
-                        ? <span><span><Link to={`/user/${this.state.myAccount}`}>My Account</Link></span><span onClick={this.logoutAccount}><Link to="/logout">Logout</Link></span></span>
-                        : <Link to="/sign-in">Sign in</Link>
-                    }
-                </li> 
+                    <li><Link to="/shop">Shop</Link></li>   
+                    <li><Link to="/contact">Contact</Link></li>
+                    <li>
+                        {
+                            this.props.isSignIn 
+                            ? <span><span><Link to={`/user/${this.state.myAccount}`}>My Account</Link></span><span onClick={this.logoutAccount}><Link to="/logout">Logout</Link></span></span>
+                            : <Link to="/sign-in">Sign in</Link>
+                        }
+                    </li> 
                 </ul>
             </nav>       
         );

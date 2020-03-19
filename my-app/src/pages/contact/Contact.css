@@ -34,7 +34,19 @@
     line-height: 20px;
     padding: 5px;
     border: dashed 1px #ddd;
+    box-sizing: border-box;
 }
 .contact-page .btn-actions{
     margin-top: 30px;
+}
+@media(max-width:767px){
+    .contact-page >* {
+        width: 100%;
+    }
+    .contact-page .contact-message{
+        margin-top: 40px;
+    }
+    .contact-page {
+        flex-direction: column-reverse;
+    }
 }

@@ -41,7 +41,7 @@
     top:4px;
     cursor: pointer;
 }
-.input-field input[type=radio]:disabled ~ label:before{
+.input-field input[type=radio]:disabled ~ label{
     opacity: .5;
     cursor: not-allowed;
 }

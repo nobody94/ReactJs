@@ -116,11 +116,11 @@ class Detail extends React.Component{
     deleteAccount(){
         firebase.auth().onAuthStateChanged(user => {
             if(user) { 
+              window.location = `/sign-in`;  
               const currentUser =  firebase.auth().currentUser;
               firebase.database().ref('users/' + currentUser.uid).remove(); 
               currentUser.delete().then(function(){
-                console.log('delete account success');
-                window.location = `/sign-in`;  
+                console.log('delete account success');              
               }).catch(function(error){
                 console.log('Delete account: '+error);
               })         

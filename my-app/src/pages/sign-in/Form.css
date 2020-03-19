@@ -50,3 +50,11 @@ input:focus{
     background-color: #2565d1;
     border-color: #2565d1;
 }
+@media(max-width:767px){
+    .form >*{
+        width: 100%;
+    }
+    .form >*:not(:last-child){
+        margin-bottom: 40px;
+    }
+}

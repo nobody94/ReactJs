@@ -44,7 +44,8 @@ class Minicart extends React.Component {
             <span className="minicart-icon" onClick={this.minicartClick}>
             <img src={cartIcon} alt="minicart"></img><span className="minicart-number">{this.props.counter}</span>
             </span>
-            <div className={isOn}>              
+            <div className={isOn}>  
+              <span className="minicart-close" onClick={this.minicartClick}></span>            
               {content}              
             </div> 
         </div> 
