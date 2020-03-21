@@ -22,6 +22,9 @@ addedItem(){
     });
 }
  render(){ 
+  const item = this.props.items.map((item)=>{
+    return item
+  });
   return (
     <div className="container">
       <div className="checkout-item">
@@ -42,9 +45,9 @@ addedItem(){
             {this.addedItem()}
             </tbody>
           </table> 
-          <Payment></Payment>
+          <Payment item={item}></Payment>
         </div>
-         : <div className="no-item"><p>Your cart is empty</p><Link className="action go-home" to="/">Continue shopping</Link></div> 
+         : <div className="no-item"><p>Your cart is empty</p><Link className="action go home" to="/">Continue shopping</Link></div> 
       }
       </div> 
     </div>

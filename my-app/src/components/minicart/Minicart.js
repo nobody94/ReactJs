@@ -18,11 +18,7 @@ class Minicart extends React.Component {
         minicartIsOn : !this.state.minicartIsOn
       })
     }
-    componentWillMount(){
-      this.setState({
-        minicartIsOn:false
-      })
-    }
+   
     addedItem(){
       const data = this.props.items;   
       // console.log(data);   
@@ -43,7 +39,7 @@ class Minicart extends React.Component {
     }
      render(){        
       let isOn = "minicart-content" + (this.state.minicartIsOn ?  " active" : ""); 
-      const content = this.props.counter > 0 ? <div className="content"><div className="item-wrapper">{this.addedItem()}</div><Link to="/checkout" className="action checkout" >go to Checkout</Link></div> : <p className="message">You had no item in your shopping cart</p>;
+      
       return (
         <div className="minicart">
             <span className="minicart-icon" onClick={this.minicartClick}>
@@ -51,7 +47,16 @@ class Minicart extends React.Component {
             </span>
             <div className={isOn}>  
               <span className="minicart-close" onClick={this.minicartClick}></span>            
-              {content}              
+              {
+                this.props.counter > 0 
+                ? <div className="content">
+                    <div className="item-wrapper">
+                      {this.addedItem()}
+                    </div>
+                    <span onClick={this.minicartClick}><Link to="/checkout" className="action checkout" >go to Checkout</Link></span> 
+                  </div> 
+                : <p className="message">You had no item in your shopping cart</p>
+              }             
             </div> 
         </div> 
       );

@@ -10,6 +10,7 @@ import Header from './components/header/Header';
 import Logout from './pages/logout/Logout';
 import Error from './pages/error/Error';
 import User from './pages/user/User';
+import CheckoutSuccess from './components/checkout/CheckoutSuccess';
 const App = () =>  { 
   return (
     <Router>
@@ -21,7 +22,8 @@ const App = () =>  {
         <Route exact path="/sign-in" component={Form}/>
         <Route exact path="/checkout" component={Checkout}/>     
         <Route exact path="/logout" component={Logout}/>
-        <Route path='/user' component={User}/>        
+        <Route path='/user' component={User}/>   
+        <Route path='/checkout-success' component={CheckoutSuccess}/>          
         <Route component={Error}/>        
       </Switch>
   </Router>

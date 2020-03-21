@@ -7,7 +7,7 @@ class CheckoutItem extends React.Component{
        
     } 
     render(){
-        console.log(this.props.quantity);
+        // console.log(this.props.quantity);
         return(
             <tr className="item">
                 <td className="image">

@@ -45,6 +45,9 @@
     opacity: .5;
     cursor: not-allowed;
 }
+.input-field input[type=radio]:disabled ~ label:before{
+    cursor: not-allowed;
+}
 .input-field input[type=radio]:checked ~ label:before{
     content: "\f046";
 }
