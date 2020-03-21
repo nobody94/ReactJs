@@ -29,6 +29,12 @@ const reducer = ( state = initialState, action ) => {
                 cartItem => cartItem.id !== action.payload.id
                 ) 
             };
+        case CartActionTypes.CHECKOUT_SUCCESS:
+            return{
+                ...state,
+                cartItems:[],
+                counter:0
+            }
         default:
             return state;
     }    

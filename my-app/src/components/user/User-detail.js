@@ -42,19 +42,17 @@ class Detail extends React.Component{
                     firebase.database().ref('users/' + currentUser.uid).on('value', function(snapshot) {
                         const accountInfo = snapshot.val();
                       // console.log(snapshot.val());
-                      if(accountInfo.address && accountInfo.phoneNumber){
+                      if(accountInfo.address){
                         currentComponent.setState({
                             address:accountInfo.address,
-                            phoneNumber:accountInfo.phoneNumber
+                            isAddress:true,
                         })
                       }
-                      if(currentComponent.state.address.length>0 && currentComponent.state.phoneNumber.length>0){
-                       currentComponent.setState({
-                        isAddress:true,
-                        isPhoneNumber:true,
-                        address:accountInfo.address,
-                        phoneNumber:accountInfo.phoneNumber
-                       })
+                      if(accountInfo.phoneNumber){
+                        currentComponent.setState({                           
+                            phoneNumber:accountInfo.phoneNumber,
+                            isPhoneNumber:true,
+                        })
                       }
                     });  
                 }                 

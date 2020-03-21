@@ -34,6 +34,16 @@ class CheckoutPayment extends React.Component{
                         isAddress:true
                     })
                 }
+                firebase.database().ref('users/' + currentUser.uid).on('value', function(snapshot) {
+                    const accountInfo = snapshot.val();
+                  // console.log(snapshot.val());
+                  if(accountInfo.address){
+                    currentComponent.setState({
+                        address:accountInfo.address,
+                        isAddress:true,
+                    })
+                  }
+                });  
             }
         });        
     }  
@@ -54,12 +64,18 @@ class CheckoutPayment extends React.Component{
                     if(user) { 
                         const currentUser =  firebase.auth().currentUser; 
                     //   console.log(currentUser.uid); 
+                    // console.log("Address " + this.state.address);                   
                         const data = {
-                        address:this.state.address,
-                        item: this.props.item,
-                        orderNum:this.state.orderNum         
+                            address:this.state.address,
                         }
-                        firebase.database().ref('users/' + currentUser.uid).update(data);                       
+                        const newData ={
+                            order:{
+                                item: this.props.item,
+                                orderNum:this.state.orderNum  
+                            }                            
+                        }
+                        firebase.database().ref('users/' + currentUser.uid).update(data);    
+                        firebase.database().ref('users/' + currentUser.uid).push(newData);                    
                     }          
                 });
             } else{
@@ -70,7 +86,8 @@ class CheckoutPayment extends React.Component{
                     orderNum:this.state.orderNum      
                 }
                 firebase.database().ref().child('shopping/').push(data); 
-            }  
+            } 
+            this.props.checkoutSuccess();
             this.setState({
                 notEmail:false,
                 isSuccess:true
@@ -122,7 +139,8 @@ class CheckoutPayment extends React.Component{
                         }}></Redirect>
                         :  <button className="action buy" onClick={this.buyHandle}>Buy now</button>
                     }
-                </div>                
+                </div> 
+                {/* <button className="action buy" onClick={this.buyHandle}>Buy now</button>                */}
             </div>
         )
     }
@@ -132,4 +150,9 @@ function mapStateToProps(state){
      isLogin: state.userReducer.isSignIn
     }    
   }
-export default connect(mapStateToProps)(CheckoutPayment);
+  const mapDispatchToProps = dispatch => {
+    return {     
+        checkoutSuccess: () => dispatch({type:'CHECKOUT_SUCCESS'})      
+    }
+  };
+export default connect(mapStateToProps,mapDispatchToProps)(CheckoutPayment);

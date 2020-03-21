@@ -5,7 +5,7 @@ import Collection from '../collection/Collection';
 import './Shop.css';
 
 const Shop  = ({ match }) => {
-  console.log(match.path);
+  // console.log(match.path);
   return(
    <div className='container'>
    <Route exact path={`${match.path}`}><Category></Category></Route>
