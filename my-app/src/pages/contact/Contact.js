@@ -2,6 +2,7 @@ import React from 'react';
 import Input from '../../components/input/Input';
 import './Contact.css';
 import firebase from '../../firebase/firebaseConfig';
+import {connect} from 'react-redux';
 
 class Contact extends React.Component {
   constructor(props){
@@ -11,11 +12,33 @@ class Contact extends React.Component {
        name:"",
        message:"",
        success:false,
-       notEmail:false
+       notEmail:false,
+       isEmail:false,
+       isName:false
     }; 
     this.sendMessage = this.sendMessage.bind(this);
     this.closeBtn = this.closeBtn.bind(this);
   }  
+  componentDidMount(){
+    if(this.props.isLogin){
+        firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+                const currentUser =  firebase.auth().currentUser;
+                this.setState({
+                    email:currentUser.email ,
+                    isEmail:true ,
+                    isName:true,
+                    name:currentUser.displayName                 
+                })               
+            } else{
+              this.setState({
+                isEmail:false,
+                isName:false
+              })
+            }
+        });  
+    }             
+}  
   onChangeHandle = (e) =>{     
     this.setState(
       {       
@@ -64,8 +87,16 @@ class Contact extends React.Component {
         <div className="contact-page">
           <div className="contact-message">
             <h2>Send a message</h2>
-            <Input name="name" type="text" value={this.state.name} onChange={this.onChangeHandle} label="Name" required></Input>
-            <Input name="email" type="email" value={this.state.email} onChange={this.onChangeHandle} label="Email" required></Input>
+            {
+              this.state.isEmail
+              ? <p>Email: {this.state.email}</p>
+              : <Input name="name" type="text" value={this.state.name} onChange={this.onChangeHandle} label="Name" required></Input>
+            }
+            {
+              this.state.isName
+              ? <p>Name: {this.state.name}</p>
+              : <Input name="email" type="email" value={this.state.email} onChange={this.onChangeHandle} label="Email" required></Input>
+            }            
             {this.state.notEmail ? <p className="message error">The email address must be in xxx@yyy.zzz format. Please try again</p> : null}
             <textarea name="message" value={this.state.message} onChange={this.onChangeHandle} placeholder="Your Message" rows="7"></textarea>
             <div className="btn-actions">
@@ -95,5 +126,9 @@ class Contact extends React.Component {
     );
   }
 }
-
-export default Contact;
+function mapStateToProps(state){
+  return{    
+   isLogin: state.userReducer.isSignIn
+  }    
+}
+export default connect(mapStateToProps)(Contact);

@@ -27,6 +27,11 @@
     box-sizing: border-box;
     text-align: center;
 }
+.checkout-item .total{    
+    font-size: 30px;
+    text-align: right;
+    padding: 0 30px;
+}
 .checkout-item table td.image,.checkout-item table th.image{
     width: 150px;
 }
@@ -124,5 +129,12 @@
     }
     .checkout-item table tbody tr + tr{
         margin-top: 20px;
+    }
+    .checkout-item .total{
+        padding: 0;
+        text-align: left;
+        font-size: 25px;
+        font-weight: 600;
+        margin-top: 30px;
     }
 }

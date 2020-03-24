@@ -20,32 +20,34 @@ class CheckoutPayment extends React.Component{
         this.buyHandle = this.buyHandle.bind(this);
     }
     componentDidMount(){
-        firebase.auth().onAuthStateChanged(user => {
-            const currentComponent = this;
-            if(user) {
-                const currentUser =  firebase.auth().currentUser;
-                this.setState({
-                    email:currentUser.email ,
-                    isEmail:true                  
-                })
-                if(currentUser.address){
+        if(this.props.isLogin){
+            firebase.auth().onAuthStateChanged(user => {
+                const currentComponent = this;
+                if(user) {
+                    const currentUser =  firebase.auth().currentUser;
                     this.setState({
-                        address:currentUser.address,
-                        isAddress:true
+                        email:currentUser.email ,
+                        isEmail:true                  
                     })
+                    if(currentUser.address){
+                        this.setState({
+                            address:currentUser.address,
+                            isAddress:true
+                        })
+                    }
+                    firebase.database().ref('users/' + currentUser.uid).on('value', function(snapshot) {
+                        const accountInfo = snapshot.val();
+                      // console.log(snapshot.val());
+                      if(accountInfo.address){
+                        currentComponent.setState({
+                            address:accountInfo.address,
+                            isAddress:true,
+                        })
+                      }
+                    });  
                 }
-                firebase.database().ref('users/' + currentUser.uid).on('value', function(snapshot) {
-                    const accountInfo = snapshot.val();
-                  // console.log(snapshot.val());
-                  if(accountInfo.address){
-                    currentComponent.setState({
-                        address:accountInfo.address,
-                        isAddress:true,
-                    })
-                  }
-                });  
-            }
-        });        
+            });  
+        }             
     }  
     onChangeHandle = (e) =>{  
         this.setState(
@@ -58,7 +60,7 @@ class CheckoutPayment extends React.Component{
         e.preventDefault();
         const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
         const test = pattern.test(this.state.email);
-        if(test){
+        if(test){           
             if(this.props.isLogin){
                 firebase.auth().onAuthStateChanged(user => {
                     if(user) { 
@@ -67,6 +69,7 @@ class CheckoutPayment extends React.Component{
                     // console.log("Address " + this.state.address);                   
                         const data = {
                             address:this.state.address,
+                            totalPrice:this.props.total
                         }
                         const newData ={
                             order:{
@@ -83,11 +86,11 @@ class CheckoutPayment extends React.Component{
                     email:this.state.email,
                     address:this.state.address,
                     item: this.props.item,
-                    orderNum:this.state.orderNum      
+                    orderNum:this.state.orderNum ,
+                    totalPrice:this.props.total   
                 }
                 firebase.database().ref().child('shopping/').push(data); 
-            } 
-            this.props.checkoutSuccess();
+            }                 
             this.setState({
                 notEmail:false,
                 isSuccess:true
@@ -140,7 +143,6 @@ class CheckoutPayment extends React.Component{
                         :  <button className="action buy" onClick={this.buyHandle}>Buy now</button>
                     }
                 </div> 
-                {/* <button className="action buy" onClick={this.buyHandle}>Buy now</button>                */}
             </div>
         )
     }
@@ -150,9 +152,5 @@ function mapStateToProps(state){
      isLogin: state.userReducer.isSignIn
     }    
   }
-  const mapDispatchToProps = dispatch => {
-    return {     
-        checkoutSuccess: () => dispatch({type:'CHECKOUT_SUCCESS'})      
-    }
-  };
-export default connect(mapStateToProps,mapDispatchToProps)(CheckoutPayment);
+ 
+export default connect(mapStateToProps)(CheckoutPayment);

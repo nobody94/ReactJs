@@ -4,6 +4,7 @@ import Item from '../../components/checkout/CheckoutItem';
 import Payment from '../../components/checkout/CheckoutPayment';
 import {Link} from 'react-router-dom';
 import './Checkout.css';
+import {Currency} from '../../components/currency/Currency';
 class Checkout extends React.Component {
   constructor(props){
     super(props);  
@@ -21,10 +22,29 @@ addedItem(){
       }  
     });
 }
+totalPrice(){
+  let price,quantity,total; 
+  let totalPrice = 0;
+  total =  this.props.items.map((item)=>{
+    for(var i = 0 ; i< this.props.counter;i++){         
+      price = item.price;
+      quantity = item.quantity;
+      return price*quantity;
+    }    
+  });
+  for(var i =0; i< total.length; i++){    
+    // console.log(total[i]);
+    totalPrice += total[i];
+  }
+  // console.log(total);
+  // console.log(totalPrice);
+  return totalPrice;
+}
  render(){ 
   const item = this.props.items.map((item)=>{
     return item
   });
+
   return (
     <div className="container">
       <div className="checkout-item">
@@ -42,10 +62,13 @@ addedItem(){
               </tr>
             </thead> 
             <tbody>
-            {this.addedItem()}
+            {this.addedItem()}           
             </tbody>
           </table> 
-          <Payment item={item}></Payment>
+          <div className="total">
+            <span className="label">Total:</span> <span className="total-price">{Currency} {this.totalPrice()}</span>
+          </div>
+          <Payment item={item} total={this.totalPrice()}></Payment>
         </div>
          : <div className="no-item"><p>Your cart is empty</p><Link className="action go home" to="/">Continue shopping</Link></div> 
       }
