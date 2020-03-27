@@ -68,7 +68,10 @@ totalPrice(){
           <div className="total">
             <span className="label">Total:</span> <span className="total-price">{Currency} {this.totalPrice()}</span>
           </div>
-          <Payment item={item} total={this.totalPrice()}></Payment>
+          <div className="btn-actions remove">
+          <button className="action remove" onClick={()=> this.props.checkoutSuccess()}>Clear all item from cart</button>
+          </div>          
+          <Payment item={item} total={this.totalPrice()}></Payment>         
         </div>
          : <div className="no-item"><p>Your cart is empty</p><Link className="action go home" to="/">Continue shopping</Link></div> 
       }
@@ -83,5 +86,9 @@ function mapStateToProps(state){
     counter:state.cartReducer.counter
   }    
 }
-
-export default connect(mapStateToProps)(Checkout);
+const mapDispatchToProps = dispatch => {
+  return {     
+      checkoutSuccess: () => dispatch({type:'CHECKOUT_SUCCESS'})      
+  }
+};
+export default connect(mapStateToProps,mapDispatchToProps)(Checkout);

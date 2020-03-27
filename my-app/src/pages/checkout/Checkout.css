@@ -70,6 +70,12 @@
 .checkout-item table .action.remove:after{
     transform: translate(-50%,-50%) rotate(-45deg);
 }
+.checkout-item .btn-actions.remove{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+/*payment*/
 .checkout-payment {
     display: flex;
     flex-wrap: wrap;
@@ -85,6 +91,7 @@
     display: flex;
     justify-content: center;
 }
+
 @media(max-width:990px){
     .checkout-item .with-item{
         width: 100%;
