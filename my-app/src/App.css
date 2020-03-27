@@ -9,6 +9,9 @@ body{
   font-family: 'Open Sans Condensed', sans-serif;
   padding: 20px 0;
 }
+button{
+  font-family: inherit;
+}
 button:focus,a:focus{
   outline: none;
 }
@@ -44,7 +47,7 @@ img{
   height: 100%;
   background-color: rgba(0,0,0,.3);
 }
-.popup .content{
+.popup .content-popup{
   width: 500px;
   position: absolute;
   top: 50%;
@@ -55,8 +58,25 @@ img{
   text-align: center;
   box-shadow: 3px 5px 10px 3px rgba(0,0,0,.05);
 }
-.popup .content p{
+.popup .content-popup p{
   font-size: 18px;
+}
+.popup .action{
+  color: #000;
+  border-color: #000;
+  background: transparent;
+  transition: all .4s ease;
+}
+.popup .action:hover{
+  color: #fff;
+  background-color: #000;
+}
+.popup .actions .action:not(:last-child){
+  margin-right: 15px;
+}
+.popup.add-cart .prd-image{
+  width: 100px;
+  margin: auto;
 }
 .message.error{
   color:red;

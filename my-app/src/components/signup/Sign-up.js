@@ -124,8 +124,8 @@ class SignUp extends React.Component {
         </div>      
         {
           this.state.message 
-          ? <div className="popup success">
-              <div className="content">
+          ? <div className="popup">
+              <div className="content-popup">
                 <p>Create account success</p>
                 <button className="action close" onClick={this.closeBtn}>close</button>
               </div>

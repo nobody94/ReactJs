@@ -104,8 +104,8 @@ class Contact extends React.Component {
             </div>
             {
               this.state.success 
-              ? <div className="popup success">
-                  <div className="content">
+              ? <div className="popup">
+                  <div className="content-popup">
                     <p>Sending message success</p>
                     <button className="action close" onClick={this.closeBtn}>close</button>
                   </div>

@@ -79,7 +79,6 @@
     margin-bottom: 40px;
     font-size: 38px;
 }
-
 @media(max-width:767px){
     .block-wrapper .item{
         width: calc(100%/2);
