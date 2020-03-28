@@ -4,10 +4,11 @@ import {decrementItem,incrementItem,clearItemFromCart} from '../../redux/cart/ca
 class CheckoutItem extends React.Component{
     constructor(props){
         super(props);  
-       
+      
     } 
+    
     render(){
-        // console.log(this.props.quantity);
+        // console.log(this.props.quantity);         
         return(
             <tr className="item">
                 <td className="image">
@@ -17,7 +18,7 @@ class CheckoutItem extends React.Component{
                     {this.props.name}
                 </td>
                 <td className="quantity" data-title="Quantity">
-                    <button className="action minus" onClick={() => this.props.decrementItem(this.props.item)}>-</button>
+                    <button className={`action minus ${this.props.quantity <= 1 ? 'disabled' : ''}`} onClick={() => this.props.decrementItem(this.props.item)} disabled={this.props.quantity <= 1}>-</button>
                     <span className="qty">{this.props.quantity}</span>
                     <button className="action plus" onClick={() => this.props.incrementItem(this.props.item)}>+</button>
                 </td>

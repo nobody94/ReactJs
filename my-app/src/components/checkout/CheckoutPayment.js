@@ -13,6 +13,7 @@ class CheckoutPayment extends React.Component{
             isEmail:false,
             isAddress:false,
             notEmail:false,
+            withoutAddress:false,
             isSuccess:false,
             orderNum: Math.floor(Math.random() * (100000001 - 1000000)) + 1000000
         }; 
@@ -60,52 +61,65 @@ class CheckoutPayment extends React.Component{
         e.preventDefault();
         const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
         const test = pattern.test(this.state.email);
-        if(test){           
-            if(this.props.isLogin){
+        if(test && this.state.address.length > 0){  
+            if(this.props.isLogin){             
                 firebase.auth().onAuthStateChanged(user => {
                     if(user) { 
                         const currentUser =  firebase.auth().currentUser; 
+                        const currentComponent = this;
                     //   console.log(currentUser.uid); 
-                    // console.log("Address " + this.state.address);                   
+                    console.log("Address " + this.state.address);                   
                         const data = {
-                            address:this.state.address,
-                            totalPrice:this.props.total
-                        }
+                            address:this.state.address
+                        }                        
                         const newData ={
-                            order:{
-                                item: this.props.item,
-                                orderNum:this.state.orderNum  
-                            }                            
+                            item: this.props.items,
+                            orderNum:this.state.orderNum ,
+                            totalPrice:this.props.total                       
                         }
                         firebase.database().ref('users/' + currentUser.uid).update(data);    
-                        firebase.database().ref('users/' + currentUser.uid).push(newData);                    
+                        firebase.database().ref('users/' + currentUser.uid + '/shopping/' + this.state.orderNum).set(newData); 
+                        firebase.database().ref('users/' + currentUser.uid).on('value', function(snapshot) {
+                            const accountInfo = snapshot.val();
+                          // console.log(snapshot.val());
+                          if(accountInfo.address.length <=0){
+                            currentComponent.setState({
+                                address:'' 
+                            })
+                          }
+                        });                     
                     }          
-                });
+                });  
             } else{
                 const data = {
                     email:this.state.email,
                     address:this.state.address,
-                    item: this.props.item,
+                    item: this.props.items,
                     orderNum:this.state.orderNum ,
                     totalPrice:this.props.total   
                 }
-                firebase.database().ref().child('shopping/').push(data); 
+                firebase.database().ref().child('shopping/' + this.state.orderNum).set(data); 
+                this.setState({
+                    email:'',
+                    address:''
+                })
             }                 
             this.setState({
                 notEmail:false,
-                isSuccess:true
+                isSuccess:true,
+                withoutAddress:false,               
             });
         }
         else{
             this.setState({
                 notEmail:true,
-                isSuccess:false
+                isSuccess:false,
+                withoutAddress:true,
+                email:'',
+                address:''
             });
         }
-        this.setState({
-            email:'',
-            address:''
-        })
+        
     }
     
     render(){  
@@ -125,7 +139,8 @@ class CheckoutPayment extends React.Component{
                         this.state.isAddress
                         ? <p>Address: {this.state.address}</p>
                         : <Input name="address" type="text" value={this.state.address} onChange={this.onChangeHandle} label="Address" required></Input>
-                    }                   
+                    }   
+                    {this.state.withoutAddress ? <p className="message error">This field cannot leave empty.</p> : null}                
                 </div>
                 <div className="content">
                     <h4 className="title">Payment method</h4>                    
@@ -149,7 +164,8 @@ class CheckoutPayment extends React.Component{
 }
 function mapStateToProps(state){
     return{    
-     isLogin: state.userReducer.isSignIn
+     isLogin: state.userReducer.isSignIn,
+     items:state.cartReducer.cartItems
     }    
   }
  

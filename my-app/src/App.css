@@ -31,6 +31,9 @@ img{
     border-width:1px ;
     border-style: solid;
 }
+.action.disabled{
+  cursor: not-allowed; 
+}
 .action.go.home{
   border-color: #000;
 }

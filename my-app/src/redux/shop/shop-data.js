@@ -21,7 +21,8 @@ export default function(){
                 id: 1,
                 name: 'Brown Brim',
                 imageUrl: hat['1.jpg'],
-                price: 25
+                price: 25,
+                
               },
               {
                 id: 2,

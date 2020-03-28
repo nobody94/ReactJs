@@ -4,12 +4,14 @@
     margin-left: auto;
     margin-right: auto;
     width: 850px;
-    max-width: 100%;
+    max-width: 100%;    
+}
+.user-information{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.user-page .content{
+.user-information .content{
     width: calc(380 * 100% / 850 );
 }
 .user-page .title{
@@ -21,4 +23,17 @@
 }
 .user-page h4{
     font-size: 20px;
+}
+.recent-order .order-item .image-wrapper{
+    width: 100px;
+}
+.recent-order .order:not(:last-child){
+    margin-bottom: 40px;
+}
+.recent-order .order-item:not(:last-child){
+    margin-bottom: 30px;
+
+}
+.recent-order .order-view{
+    cursor: pointer;
 }

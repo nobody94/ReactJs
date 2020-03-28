@@ -70,7 +70,10 @@
     font-weight: 600;
     font-size: 28px;
     margin-bottom: 20px;
-    line-height: 100%;
+    line-height: 100%;    
+}
+.category-view .title a{
+    color: #000;
 }
 /*Collection*/
 .collection-view .title{

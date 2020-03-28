@@ -1,6 +1,6 @@
 import React from 'react';
 import Item from './CategoryItem';
-
+import {Link} from 'react-router-dom';
 class CategoryBlock extends React.Component {
     constructor(props){
         super(props);  
@@ -16,7 +16,7 @@ class CategoryBlock extends React.Component {
   render(){   
     return (      
         <div className="block-wrapper"> 
-            <h3 className="title">{this.props.title}</h3>      
+            <h3 className="title"><Link to={`/shop/${this.props.route}`}>{this.props.title}</Link></h3>      
             <div className="item-wrapper">
                 {this.ListItem()}
             </div>
