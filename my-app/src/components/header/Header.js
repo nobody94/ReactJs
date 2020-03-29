@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import Minicart from '../minicart/Minicart';
-import logo from '../../assets/crown.svg';
+import logo from '../../assets/logo.png';
 import './Header.css';
 import MediaQuery from 'react-responsive';
 import Navigation from '../navigation/Navigation';
