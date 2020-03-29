@@ -1,24 +1,37 @@
 import React from 'react';
 import cartIcon from '../../assets/shopping-bag.svg';
 import {  Link } from "react-router-dom";
-import Item from './CartItem';
+import Item from './MinicartItem';
 import {connect} from 'react-redux';
 import './Minicart.css';
+import {Loading} from '../loading/Loading';
 class Minicart extends React.Component {
     constructor(props){
       super(props);
       this.state = {
          minicartIsOn : false,
+         loading:false
       }    
       this.minicartClick = this.minicartClick.bind(this);
-      // this.addedItem = this.addedItem.bind(this);
+      this.goCheckout = this.goCheckout.bind(this);
     }
     minicartClick(){
       this.setState({
         minicartIsOn : !this.state.minicartIsOn
       })
     }
-   
+    goCheckout(){
+      this.setState({
+        loading:true
+      })
+      setTimeout(()=>{
+        this.setState({
+          loading:false
+        })
+        this.minicartClick();
+        window.location = `/checkout`;  
+      },1000)     
+    }
     addedItem(){
       const data = this.props.items;   
       // console.log(data);   
@@ -53,11 +66,16 @@ class Minicart extends React.Component {
                     <div className="item-wrapper">
                       {this.addedItem()}
                     </div>
-                    <span onClick={this.minicartClick}><Link to="/checkout" className="action checkout" >go to Checkout</Link></span> 
+                    <span onClick={this.goCheckout} className="action checkout">go to Checkout</span> 
                   </div> 
                 : <p className="message">You had no item in your shopping cart</p>
               }             
             </div> 
+            {
+                    this.state.loading
+                    ? <Loading></Loading>
+                    : null
+                }
         </div> 
       );
      } 

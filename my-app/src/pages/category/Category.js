@@ -1,7 +1,7 @@
-import React from 'react';
+import React,{lazy,Suspense} from 'react';
 import {connect} from 'react-redux';
-import CategoryBlock from '../../components/category/CategoryComponent';
-
+import {Loading} from '../../components/loading/Loading';
+const CategoryBlock = lazy(()=> import('../../components/category/CategoryComponent'));
 class Category extends React.Component {
   constructor(props){
     super(props);  
@@ -17,7 +17,9 @@ class Category extends React.Component {
   render(){    
     return (
       <div className="category-view">
-      {this.ListItem()}
+        <Suspense fallback={<Loading></Loading>}>
+          {this.ListItem()}
+        </Suspense>
       </div>
     );
   }

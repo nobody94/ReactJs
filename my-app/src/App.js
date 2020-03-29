@@ -11,6 +11,8 @@ import Logout from './pages/logout/Logout';
 import Error from './pages/error/Error';
 import User from './pages/user/User';
 import CheckoutSuccess from './components/checkout/CheckoutSuccess';
+
+
 const App = () =>  { 
   return (
     <Router>

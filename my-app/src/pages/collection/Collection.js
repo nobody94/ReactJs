@@ -1,7 +1,7 @@
-import React from 'react';
+import React,{lazy,Suspense} from 'react';
 import {connect} from 'react-redux';
-import CollectionBlock from '../../components/collection/CollectionComponent';
-
+import {Loading} from '../../components/loading/Loading';
+const CollectionBlock = lazy(()=> import('../../components/collection/CollectionComponent'));
  const Collection = (props,{match}) =>{
   const shopId =  props.match.params.shopId;
   // console.log(shopId);
@@ -10,13 +10,15 @@ import CollectionBlock from '../../components/collection/CollectionComponent';
   });
   // console.log(shopItem);
   const listItem = [shopItem].map((item)=>{
-    return(
+    return(      
       <CollectionBlock key={item.id} title={item.title} product={item.items}></CollectionBlock> 
     )
      });
   return(
   <div className="collection-view">
-    {shopId ? listItem : null}
+    <Suspense fallback={<Loading></Loading>}>
+      {shopId ? listItem : null}
+    </Suspense>    
   </div>
   );
  }

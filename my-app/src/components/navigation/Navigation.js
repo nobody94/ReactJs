@@ -4,12 +4,13 @@ import firebase from '../../firebase/firebaseConfig';
 import {connect} from 'react-redux';
 import './Navigation.css';
 import MediaQuery from 'react-responsive';
-
+import {Loading} from '../loading/Loading';
 class Navigation extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             myAccount:'',
+            loading:false
         }; 
         this.logoutAccount = this.logoutAccount.bind(this);
     }
@@ -24,13 +25,22 @@ class Navigation extends React.Component{
           } 
       });        
   }  
-  logoutAccount(e){
-    e.preventDefault();
-        firebase.auth().signOut().then(function() { 
-            console.log('logout success');
-        }).catch(function(error) {
-            console.log(error);
-        });
+    logoutAccount(e){
+        e.preventDefault();
+        this.setState({
+            loading:true
+        })
+        setTimeout(()=>{
+            this.setState({
+                loading:false
+            })
+            firebase.auth().signOut().then(function() { 
+                console.log('logout success');
+            }).catch(function(error) {
+                console.log(error);
+            });
+            window.location = `/logout`;  
+        },1000)       
     }  
     render(){  
         const isOn =  this.props.mobileNav ? 'active' : '';   
@@ -45,11 +55,16 @@ class Navigation extends React.Component{
                     <li>
                         {
                             this.props.isSignIn 
-                            ? <span><span><Link to={`/user/${this.state.myAccount}`}>My Account</Link></span><span onClick={this.logoutAccount}><Link to="/logout">Logout</Link></span></span>
+                            ? <span><span><Link to={`/user/${this.state.myAccount}`}>My Account</Link></span><span onClick={this.logoutAccount} className="logout">Logout</span></span>
                             : <Link to="/sign-in">Sign in</Link>
                         }
                     </li> 
                 </ul>
+                {
+                    this.state.loading
+                    ? <Loading></Loading>
+                    : null
+                }
             </nav>       
         );
     }

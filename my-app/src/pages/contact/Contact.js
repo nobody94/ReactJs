@@ -3,6 +3,7 @@ import Input from '../../components/input/Input';
 import './Contact.css';
 import firebase from '../../firebase/firebaseConfig';
 import {connect} from 'react-redux';
+import {Loading} from '../../components/loading/Loading';
 
 class Contact extends React.Component {
   constructor(props){
@@ -14,7 +15,9 @@ class Contact extends React.Component {
        success:false,
        notEmail:false,
        isEmail:false,
-       isName:false
+       isName:false,
+       loading:false,
+       messageRequest:false
     }; 
     this.sendMessage = this.sendMessage.bind(this);
     this.closeBtn = this.closeBtn.bind(this);
@@ -52,28 +55,45 @@ class Contact extends React.Component {
   sendMessage(e){ 
     e.preventDefault();
     const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-    const test = pattern.test(this.state.email);
+    const test = pattern.test(this.state.email);    
     if(test){
-      const data = {
-        name:this.state.name,
-        email:this.state.email,
-        message:this.state.message
-      }
-      firebase.database().ref().child('contact/').push(data);  
       this.setState({
-        success:true,
         notEmail:false
       })
+      if (this.state.message.length>0){
+        this.setState({
+          loading:true,
+          messageRequest:false
+        })
+        const data = {
+          name:this.state.name,
+          email:this.state.email,
+          message:this.state.message
+        }
+        setTimeout(()=>{         
+          firebase.database().ref().child('contact/').push(data);  
+          this.setState({
+            success:true,            
+            loading:false
+          })
+        },1000);     
+      } else{
+        this.setState({
+          messageRequest:true
+        })
+      }
+
     } else {
       this.setState({
-        notEmail:true
+        notEmail:true,       
       })
     }
     this.setState({ 
       email:"",
       name:"",
-      message:"",      
+      message:""
     })
+      
     // console.log(this.state); 
   }
   closeBtn(){
@@ -99,9 +119,15 @@ class Contact extends React.Component {
             }            
             {this.state.notEmail ? <p className="message error">The email address must be in xxx@yyy.zzz format. Please try again</p> : null}
             <textarea name="message" value={this.state.message} onChange={this.onChangeHandle} placeholder="Your Message" rows="7"></textarea>
+            {this.state.messageRequest ? <p className="message error">Please leave your message</p> : null}
             <div className="btn-actions">
               <button className="action submit" onClick={this.sendMessage}>Send message</button>
             </div>
+            {
+              this.state.loading
+              ? <Loading></Loading>
+              : null
+            }
             {
               this.state.success 
               ? <div className="popup">

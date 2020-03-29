@@ -10,10 +10,12 @@
 .navigation li{
     display: block;
 }
-.navigation li a{
+.navigation li a,.navigation li .logout{
     text-transform: uppercase;
     display: inline-block;
     padding: 10px 15px;
+    cursor: pointer;
+    color: #000;
 }
 /*nav mobile toggle*/
 .nav-mobile{

@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from '../input/Input';
 import firebase from '../../firebase/firebaseConfig';
-
+import {Loading} from '../loading/Loading';
 class SignUp extends React.Component {
   constructor(props){
     super(props);
@@ -14,6 +14,7 @@ class SignUp extends React.Component {
        isMatch:false,
        notEmail:false,
        emailIsExist:false,
+       loading:false
     };   
     this.onChangeHandle = this.onChangeHandle.bind(this);
     this.createUser = this.createUser.bind(this);
@@ -42,51 +43,59 @@ class SignUp extends React.Component {
          confirmPassword:"",
         })
       }else{  
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)  
-        .then(function(user){
-          if(user) {
-            console.log('username: '+currentComponent.state.name);
-            user.user.updateProfile({
-              displayName: currentComponent.state.name,
-           });
-            currentComponent.setState({           
-               name:"",
-               password:"",
-               email:"",
-               confirmPassword:"",
-            })
-          }        
-          currentComponent.setState({           
-            message:true,
+        currentComponent.setState({
+          loading:true
+        })
+        setTimeout(()=>{
+          currentComponent.setState({
+            loading:false
           })
-        })    
-        .catch(function(error) {
-          var errorCode = error.code;
-          console.log(errorCode);    
-          currentComponent.setState({           
-            name:"",
-            password:"",
-            email:"",
-            confirmPassword:"",
-         })     
-          if(errorCode == "auth/email-already-in-use"){
-             currentComponent.setState({
-              message:false,
-              emailIsExist:true
+          firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)  
+          .then(function(user){
+            if(user) {
+              console.log('username: '+currentComponent.state.name);
+              user.user.updateProfile({
+                displayName: currentComponent.state.name,
+             });
+              currentComponent.setState({           
+                 name:"",
+                 password:"",
+                 email:"",
+                 confirmPassword:"",
+              })
+            }        
+            currentComponent.setState({           
+              message:true,
             })
-          } 
-        }); 
-        firebase.auth().onAuthStateChanged(user => {
-            if(user) { 
-              const currentUser =  firebase.auth().currentUser; 
-              console.log(currentUser.uid); 
-              const data = {
-                id:currentUser.uid,
-                email:currentUser.email,                
-              }
-              firebase.database().ref('users/' + currentUser.uid).set(data);
-            }          
-        });
+          })    
+          .catch(function(error) {
+            var errorCode = error.code;
+            console.log(errorCode);    
+            currentComponent.setState({           
+              name:"",
+              password:"",
+              email:"",
+              confirmPassword:"",
+           })     
+            if(errorCode == "auth/email-already-in-use"){
+               currentComponent.setState({
+                message:false,
+                emailIsExist:true
+              })
+            } 
+          }); 
+          firebase.auth().onAuthStateChanged(user => {
+              if(user) { 
+                const currentUser =  firebase.auth().currentUser; 
+                console.log(currentUser.uid); 
+                const data = {
+                  id:currentUser.uid,
+                  email:currentUser.email,                
+                }
+                firebase.database().ref('users/' + currentUser.uid).set(data);
+              }          
+          });
+        },1000);       
       } 
       this.setState({
         notEmail:false,
@@ -132,6 +141,11 @@ class SignUp extends React.Component {
             </div>
           :null
         }  
+        {
+          this.state.loading
+          ? <Loading></Loading>
+          : null
+        }
       </form>
     );
   } 

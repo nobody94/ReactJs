@@ -1,7 +1,8 @@
 import React from 'react';
-import Item from '../../components/home/HomeItem';
 import './Home.css';
 import {connect} from 'react-redux';
+import Item from '../../components/home/HomeItem';
+
 class Home extends React.Component { 
   ListItem(){
     return this.props.data.map((item)=>{

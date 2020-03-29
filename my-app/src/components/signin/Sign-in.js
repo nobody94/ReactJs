@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from '../input/Input';
 import firebase from '../../firebase/firebaseConfig';
-
+import {Loading} from '../loading/Loading';
 class SignIn extends React.Component {
   constructor(props){
     super(props);
@@ -10,7 +10,8 @@ class SignIn extends React.Component {
        email:"",
        notEmail:false,
        emailNotExist:false,
-       wrongPassword:false
+       wrongPassword:false,
+       loading:false
     };   
     this.onChangeHandle = this.onChangeHandle.bind(this);
     this.loginAccount = this.loginAccount.bind(this);
@@ -29,20 +30,28 @@ class SignIn extends React.Component {
     const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     const test = pattern.test(this.state.email);
     const currentComponent = this;
-    if(test){
+    if(test){     
       this.setState({
-        notEmail:false,
-        password:"",
-        email:"",
+        notEmail:false,      
       });
       firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(()=>{
         firebase.auth().onAuthStateChanged(user => {
           if(user) {
-            const currentUser =  firebase.auth().currentUser;
-            const userId = currentUser.uid;
-            // console.log(currentUser);
-            window.location = `/user/${userId}`;  
+            currentComponent.setState({
+             loading:true
+            })
+            setTimeout(()=>{
+              currentComponent.setState({
+                password:"",
+                email:"",
+                loading:false
+              })
+              const currentUser =  firebase.auth().currentUser;
+              const userId = currentUser.uid;
+              // console.log(currentUser);
+              window.location = `/user/${userId}`;  
+            },1000)            
           }
          
         });        
@@ -108,6 +117,11 @@ class SignIn extends React.Component {
           <button className="action login" onClick={(e)=>this.loginAccount(e)}>Sign in</button>
           <button className="action google-login" onClick={this.signInWithGoogle}>Sign in with google</button>
         </div>
+        {
+          this.state.loading
+          ? <Loading></Loading>
+          : null
+        }
       </form>
     );
   }  

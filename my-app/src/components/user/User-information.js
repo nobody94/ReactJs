@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import firebase from '../../firebase/firebaseConfig';
 import Input from '../input/Input';
+import {Loading} from '../loading/Loading';
 class UserInformation extends React.Component{
     constructor(props){
         super(props);
@@ -12,7 +13,8 @@ class UserInformation extends React.Component{
            phoneNumber:"",
            isAddress:false,
            isPhoneNumber:false,
-           message:false,          
+           message:false,   
+           loading:false       
         };  
         this.onChangeHandle = this.onChangeHandle.bind(this);
         this.saveInformation = this.saveInformation.bind(this);
@@ -78,12 +80,19 @@ class UserInformation extends React.Component{
                phoneNumber:this.state.phoneNumber                
               }
               if(this.state.address.length>0 && this.state.phoneNumber.length>0){
-                    firebase.database().ref('users/' + currentUser.uid).update(data);   
+                  this.setState({
+                      loading:true,
+                      message:false
+                  })               
+                setTimeout(()=>{
                     this.setState({
+                        loading:false,
                         isAddress:true,
                         isPhoneNumber:true,
-                        message:false
-                    }) 
+                    })
+                    firebase.database().ref('users/' + currentUser.uid).update(data); 
+                },1000);  
+                    
                } else{
                     this.setState({
                         message:true,
@@ -95,34 +104,50 @@ class UserInformation extends React.Component{
         }); 
     }
     changeInformation(){
-        firebase.auth().onAuthStateChanged(user => {
-            if(user) { 
-              const currentUser =  firebase.auth().currentUser; 
-              const data = {
-               address:'',
-               phoneNumber:''               
-              }
-              firebase.database().ref('users/' + currentUser.uid).update(data);  
-              this.setState({
-                  isAddress:false,
-                  isPhoneNumber:false
-              }) 
-            }          
-        });
+        this.setState({
+            loading:true
+        })
+        setTimeout(()=>{
+            this.setState({
+                loading:false
+            })
+            firebase.auth().onAuthStateChanged(user => {
+                if(user) { 
+                  const currentUser =  firebase.auth().currentUser; 
+                  const data = {
+                   address:'',
+                   phoneNumber:''               
+                  }
+                  firebase.database().ref('users/' + currentUser.uid).update(data);  
+                  this.setState({
+                      isAddress:false,
+                      isPhoneNumber:false
+                  }) 
+                }          
+            });
+        },1000)       
     }
     deleteAccount(){
-        firebase.auth().onAuthStateChanged(user => {
-            if(user) { 
-              window.location = `/sign-in`;  
-              const currentUser =  firebase.auth().currentUser;
-              firebase.database().ref('users/' + currentUser.uid).remove(); 
-              currentUser.delete().then(function(){
-                console.log('delete account success');              
-              }).catch(function(error){
-                console.log('Delete account: '+error);
-              })         
-            }          
-        });
+        this.setState({
+            loading:true
+        })
+        setTimeout(()=>{
+            this.setState({
+                loading:false
+            })
+            firebase.auth().onAuthStateChanged(user => {
+                if(user) { 
+                  window.location = `/sign-in`;  
+                  const currentUser =  firebase.auth().currentUser;
+                  firebase.database().ref('users/' + currentUser.uid).remove(); 
+                  currentUser.delete().then(function(){
+                    console.log('delete account success');              
+                  }).catch(function(error){
+                    console.log('Delete account: '+error);
+                  })         
+                }          
+            });
+        },1000);       
     }
     render(){
         return(
@@ -165,6 +190,11 @@ class UserInformation extends React.Component{
                             <button className="action save" onClick={this.saveInformation}>Save</button>
                         </div>
                     }    
+                    {
+                        this.state.loading
+                        ? <Loading></Loading>
+                        : null
+                    }
                </div>
             </div>
         )

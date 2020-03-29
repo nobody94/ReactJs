@@ -1,7 +1,8 @@
-import React from 'react';
-import Information from './User-information';
-import RecentOrder from './RecentOrder';
+import React,{lazy,Suspense} from 'react';
+import RecentOrder from '../recent-order/RecentOrder';
 import firebase from '../../firebase/firebaseConfig';
+import {Loading} from '../loading/Loading';
+const Information = lazy(()=> import('./User-information'));
 class Detail extends React.Component{
     constructor(props){
         super(props);
@@ -10,11 +11,11 @@ class Detail extends React.Component{
             isOrder:false
          }; 
       }
-      componentDidMount(){
+      componentDidMount(){        
         firebase.auth().onAuthStateChanged(user => {
             const currentComponent = this;
             if(user) {
-                const currentUser =  firebase.auth().currentUser;   
+                const currentUser = firebase.auth().currentUser;   
                 if(currentUser.uid){
                     firebase.database().ref('users/' + currentUser.uid).on('value', function(snapshot) {
                         const accountInfo = snapshot.val();
@@ -47,16 +48,17 @@ class Detail extends React.Component{
     return(
         <div className="user-page">
             <h3 className="title">My Account</h3>
-            <Information></Information>
-            <h4>Recent Order</h4>
-            <div className="recent-order">
+            <Suspense fallback={<Loading></Loading>}>
+                <Information></Information>    
+            </Suspense> 
+            <Suspense fallback={<Loading></Loading>}>
+                <h4>Recent Order</h4>
                 {
                     this.state.isOrder
                     ? this.ListItem()
                     : <p className="message">You don't have any order yet!</p>
-                }
-                {/* {this.ListItem()} */}
-            </div>           
+                } 
+            </Suspense> 
         </div>
     );
    }

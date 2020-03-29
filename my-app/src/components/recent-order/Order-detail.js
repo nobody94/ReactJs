@@ -3,7 +3,7 @@ import React from 'react';
 function Order(props){
     return(
         <div className="order-item">
-            <p>Product: {props.name}</p>       
+            <p className="prd-name">Product: {props.name}</p>       
             <div className="image-wrapper">
                 <img src={props.imageUrl}></img>
             </div>                 
