@@ -90,6 +90,8 @@ class SignIn extends React.Component {
       var token = result.credential.accessToken;
       // The signed-in user info.
       var user = result.user;
+      console.log('User>>Goole>>>>', user);
+      const userId = user.uid;
       // ...
     }).catch(function(error) {
       // Handle Errors here.

@@ -26,7 +26,7 @@ const App = () =>  {
         <Route exact path="/logout" component={Logout}/>
         <Route path='/user' component={User}/>   
         <Route path='/checkout-success' component={CheckoutSuccess}/>          
-        <Route component={Error}/>        
+        <Route path='/errors/404/' component={Error}/>        
       </Switch>
   </Router>
   );

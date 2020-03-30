@@ -15,6 +15,8 @@ class Minicart extends React.Component {
       }    
       this.minicartClick = this.minicartClick.bind(this);
       this.goCheckout = this.goCheckout.bind(this);
+      this.setWrapperRef = this.setWrapperRef.bind(this);
+      this.handleClickOutside = this.handleClickOutside.bind(this);
     }
     minicartClick(){
       this.setState({
@@ -23,14 +25,14 @@ class Minicart extends React.Component {
     }
     goCheckout(){     
       this.setState({
-        loading:true
+        loading:true,
+        minicartIsOn:false
       })
       setTimeout(()=>{
         this.setState({
           loading:false,
           isCheckout:true
-        })
-        this.minicartClick();  
+        })          
       },1000)     
     }
     addedItem(){
@@ -47,15 +49,31 @@ class Minicart extends React.Component {
         }          
       });  
     }
-     render(){        
-      let isOn = "minicart-content" + (this.state.minicartIsOn ?  " active" : ""); 
-      
+    setWrapperRef(node) {
+      this.wrapperRef = node;
+    }
+    handleClickOutside(event) {
+      if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+        // alert('You clicked outside of me!');
+        this.setState({
+          minicartIsOn:false
+        })
+      }
+    }
+    componentDidMount() {
+      document.addEventListener('mousedown', this.handleClickOutside);
+    }
+  
+    componentWillUnmount() {
+      document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+     render(){ 
       return (
-        <div className="minicart">
+        <div className="minicart" ref={this.setWrapperRef}>
             <span className="minicart-icon" onClick={this.minicartClick}>
             <img src={cartIcon} alt="minicart"></img><span className="minicart-number">{this.props.counter}</span>
             </span>
-            <div className={isOn}>  
+            <div className={`minicart-content ${this.state.minicartIsOn ?  "active" : ""}`}>  
               <span className="minicart-close" onClick={this.minicartClick}></span>            
               {
                 this.props.counter > 0 
