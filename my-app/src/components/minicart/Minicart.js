@@ -1,6 +1,6 @@
 import React from 'react';
 import cartIcon from '../../assets/shopping-bag.svg';
-import {  Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Item from './MinicartItem';
 import {connect} from 'react-redux';
 import './Minicart.css';
@@ -10,7 +10,8 @@ class Minicart extends React.Component {
       super(props);
       this.state = {
          minicartIsOn : false,
-         loading:false
+         loading:false,
+         isCheckout:false
       }    
       this.minicartClick = this.minicartClick.bind(this);
       this.goCheckout = this.goCheckout.bind(this);
@@ -20,24 +21,20 @@ class Minicart extends React.Component {
         minicartIsOn : !this.state.minicartIsOn
       })
     }
-    goCheckout(){
+    goCheckout(){     
       this.setState({
         loading:true
       })
       setTimeout(()=>{
         this.setState({
-          loading:false
+          loading:false,
+          isCheckout:true
         })
-        this.minicartClick();
-        window.location = `/checkout`;  
+        this.minicartClick();  
       },1000)     
     }
     addedItem(){
       const data = this.props.items;   
-      // console.log(data);   
-      // for(var i =0 ; i< this.props.counter;i++){         
-      //   console.log(data[i]);
-      // }      
       return data.map((item)=>{
         for(var i =0 ; i< this.props.counter;i++){ 
           return (
@@ -67,6 +64,11 @@ class Minicart extends React.Component {
                       {this.addedItem()}
                     </div>
                     <span onClick={this.goCheckout} className="action checkout">go to Checkout</span> 
+                    {
+                      this.state.isCheckout ?
+                      <Redirect to='/checkout'></Redirect>
+                      :null
+                    } 
                   </div> 
                 : <p className="message">You had no item in your shopping cart</p>
               }             
