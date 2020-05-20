@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import LifeCycle from './components/lifecycle/LifeCycle';
+import DragItem from './components/dragItem/DragItem';
+import Search from './components/search/Search';
+import HOC from './components/hoc/usedHOC';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return(
+     <div>
+        {/* <LifeCycle></LifeCycle> */}
+        {/* <DragItem></DragItem> */}
+        {/* <Search></Search> */}
+
+        {/* Higher Order Component */}
+         {/* <HOC></HOC> */}
+
+         
+     </div>
+  )
 }
 
 export default App;
