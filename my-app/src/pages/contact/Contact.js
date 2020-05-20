@@ -22,26 +22,46 @@ class Contact extends React.Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.closeBtn = this.closeBtn.bind(this);
   }  
-  componentDidMount(){
-    if(this.props.isLogin){
-        firebase.auth().onAuthStateChanged(user => {
-            if(user) {
-                const currentUser =  firebase.auth().currentUser;
-                this.setState({
-                    email:currentUser.email ,
-                    isEmail:true ,
-                    isName:true,
-                    name:currentUser.displayName                 
-                })               
-            } else{
-              this.setState({
-                isEmail:false,
-                isName:false
-              })
-            }
-        });  
-    }             
-}  
+//   componentDidMount(){
+//     if(this.props.isLogin){
+//         firebase.auth().onAuthStateChanged(user => {
+//             if(user) {
+//                 const currentUser =  firebase.auth().currentUser;
+//                 this.setState({
+//                     email:currentUser.email ,
+//                     isEmail:true ,
+//                     isName:true,
+//                     name:currentUser.displayName                 
+//                 })               
+//             } else{
+//               this.setState({
+//                 isEmail:false,
+//                 isName:false
+//               })
+//             }
+//         });  
+//     }             
+// }  
+componentWillMount(){
+  if(this.props.isLogin){
+    firebase.auth().onAuthStateChanged(user => {
+        if(user) {
+            const currentUser =  firebase.auth().currentUser;
+            this.setState({
+                email:currentUser.email ,
+                isEmail:true ,
+                isName:true,
+                name:currentUser.displayName                 
+            })               
+        } else{
+          this.setState({
+            isEmail:false,
+            isName:false
+          })
+        }
+    });  
+}      
+}
   onChangeHandle = (e) =>{     
     this.setState(
       {       

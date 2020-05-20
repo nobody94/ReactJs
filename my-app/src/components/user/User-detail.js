@@ -8,10 +8,34 @@ class Detail extends React.Component{
         super(props);
         this.state = {   
             recentOrder:null,
-            isOrder:false
+            message: ''
          }; 
       }
-      componentDidMount(){        
+    //   componentDidMount(){        
+    //     firebase.auth().onAuthStateChanged(user => {
+    //         const currentComponent = this;
+    //         if(user) {
+    //             const currentUser = firebase.auth().currentUser;   
+    //             if(currentUser.uid){
+    //                 firebase.database().ref('users/' + currentUser.uid).on('value', function(snapshot) {
+    //                     const accountInfo = snapshot.val();
+    //                   // console.log(snapshot.val());                      
+    //                   if(accountInfo.shopping){
+    //                     currentComponent.setState({
+    //                         isOrder:true,
+    //                         recentOrder:accountInfo.shopping
+    //                     })
+    //                   } else{
+    //                       currentComponent.setState({
+    //                           isOrder:false
+    //                       })
+    //                   }
+    //                 });  
+    //             }                 
+    //         } 
+    //     });        
+    // } 
+    componentWillMount(){
         firebase.auth().onAuthStateChanged(user => {
             const currentComponent = this;
             if(user) {
@@ -22,19 +46,20 @@ class Detail extends React.Component{
                       // console.log(snapshot.val());                      
                       if(accountInfo.shopping){
                         currentComponent.setState({
-                            isOrder:true,
-                            recentOrder:accountInfo.shopping
+                            recentOrder:accountInfo.shopping,
+                            message:''
+
                         })
                       } else{
                           currentComponent.setState({
-                              isOrder:false
+                              message:'Dont have any order yet'
                           })
                       }
                     });  
                 }                 
             } 
-        });        
-    }  
+        });    
+    } 
     ListItem(){     
         // console.log(this.state.recentOrder ? Object.values(this.state.recentOrder) : '');    
         return this.state.recentOrder ? Object.values(this.state.recentOrder).map((item)=>{
@@ -54,9 +79,9 @@ class Detail extends React.Component{
             <Suspense fallback={<Loading></Loading>}>
                 <h4>Recent Order</h4>
                 {
-                    this.state.isOrder
-                    ? this.ListItem()
-                    : <p className="message">You don't have any order yet!</p>
+                    this.state.message
+                    ? <p className="message">{this.state.message}</p>
+                    : this.ListItem()
                 } 
             </Suspense> 
         </div>
