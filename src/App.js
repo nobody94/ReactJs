@@ -4,6 +4,7 @@ import LifeCycle from './components/lifecycle/LifeCycle';
 import DragItem from './components/dragItem/DragItem';
 import Search from './components/search/Search';
 import HOC from './components/hoc/usedHOC';
+import Hook from './components/reactHook/Hook';
 
 function App() {
   return(
@@ -14,7 +15,7 @@ function App() {
 
         {/* Higher Order Component */}
          {/* <HOC></HOC> */}
-
+         {/* <Hook /> */}
          
      </div>
   )
